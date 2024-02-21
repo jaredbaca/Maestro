@@ -73,7 +73,7 @@ function BookingPage() {
                 "Accept" : "application/json",
                 "Content-Type": "application/json"
             },
-            body: body
+            body: JSON.stringify(body)
         })
         
         if(response.ok) {
@@ -90,7 +90,7 @@ function BookingPage() {
             <form onSubmit={handleSubmit}>
 
             
-                {/* <div>
+                <div>
                     <label>Type</label>
                     <select onChange={handleTypeChange} name="type">
                         {
@@ -109,9 +109,9 @@ function BookingPage() {
                             // }
                         })}
                     </select>
-                </div> */}
+                </div>
                 
-                {/* <div>
+                <div>
                     <label>Start Date/Time</label>
                     <input type="datetime-local" id="startDate" name="startDate" onChange={handleChange}/>
                 </div>
@@ -134,7 +134,7 @@ function BookingPage() {
                 <div>
                     <label>Student ID</label>
                     <input type="text" id="studentID" name="studentID" value={formData.studentID} onChange={handleChange} />
-                </div> */}
+                </div>
 
                 
 
@@ -153,9 +153,9 @@ function BookingPage() {
                     </Grid>
                 </div> */}
                         
-                <BookingForm />
+                {/* <BookingForm /> */}
 
-                {/* <button type="submit">Submit</button> */}
+                <button type="submit">Submit</button>
             </form>
             <h2>{text}</h2>
         </div>

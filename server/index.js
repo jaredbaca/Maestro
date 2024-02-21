@@ -107,6 +107,8 @@ app.post('/add', async function (req, res) {
     const building = req.body.building;
     const roomNo = req.body.roomNo;
 
+    console.log(`Body as received by api: ${req.body}`)
+
     let result = await db.addEvent(res, startDate, endDate, studentID, building, roomNo);
     return result;
 })

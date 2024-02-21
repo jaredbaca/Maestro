@@ -10,9 +10,9 @@ import Box from '@mui/material/Box';
 function BookingForm() {
 
     return(
-        <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+        // <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
         
-        </Box>
+        // </Box>
 
        
         <TextField label="Student ID" />

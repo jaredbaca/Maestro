@@ -3,7 +3,7 @@ import { getEvents } from './apiCalls';
 import Schedule from './Schedule';
 import DatePicker from "react-datepicker";
 import moment from 'moment';
-import {BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes, Link, useLocation} from 'react-router-dom';
 
 import "react-datepicker/dist/react-datepicker.css";
 import { Chip } from '@mui/material';
@@ -46,17 +46,11 @@ function Admin() {
             <input type="date" id="dateSelect" name="date" onChange={(event)=>setDate(event.target.value)}/>
             {events.map((event) => {
                 return(
-        
-                    // <a href="/eventDetailsAdmin">
-                    //     <button>{event.ID}</button>
-                    // </a>
                     <Link 
-                        to={{
-                            pathname: '/eventDetailsAdmin', 
-                            state: { eventID : "1" }
-                        }}>
+                        to={{pathname: '/eventDetailsAdmin', state: { eventID: 2}}}>
                         
-                        <button>{event.ID}</button></Link>
+                        <button>{event.ID}</button>
+                    </Link>
                 )
             })}
         </div>
