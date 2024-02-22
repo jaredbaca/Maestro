@@ -16,86 +16,43 @@ const db = require('../db/db.js');
 
 // =================================================== REST API Actions ==============================================================
 
-// // GET - Retrieve All events 
-// // TODO add JSON, XML
-// app.get('/all-events', (req, res) => {
-
-//     let query = "SELECT * FROM Event";
-
-//     db.getConnection((err, connection) => {
-//         if(err) {
-//             console.error(err);
-//         }
-
-//         connection.query(query, (err, result) => {
-//             if(err) {
-//                 console.error(err);
-//             }
-
-//             console.log(result);
-//             res.json(result);
-
-//             connection.release();
-//         });
-//     });
-// });
 
 // Alternate version of all events
 app.get('/all-events', async function (req, res) {
-
-    let result = await db.getAllEvents(req, res);
-    return result;
-    
+    let result = await db.getAllEvents();
+    res.json(result);
+    return result;  
 });
 
-// // GET - Locations
-// app.get('/locations', (req, res) => {
-
-//     let query = "SELECT * FROM Location";
-
-//     db.getConnection((err, connection) => {
-//         if(err) {
-//             console.error(err);
-//         }
-
-//         connection.query(query, (err, result) => {
-//             if(err) {
-//                 console.error(err);
-//             }
-
-//             console.log(result);
-//             res.json(result);
-
-//             connection.release();
-//         });
-//     });
-// });
 
 // GET - Locations (DB Logic moved to separate DB file)
 app.get('/locations', async function (req, res) {
-
-    let result = await db.getLocations(req, res);
+    let result = await db.getLocations();
+    res.json(result);
     return result;
 });
 
-// Retrieve Events By Date
+// Retrieve Events By Date (Must Be UTC)
 app.post('/date', async function(req, res) {
     let date = req.body.date;
-    let result = await db.getEventByDate(date, res);
+    let result = await db.getEventByDate(date);
+    res.json(result);
     return result;
 });
 
 // Retrieve Events By Event ID
 app.post('/event', async function(req, res) {
     let eventID = req.body.eventID;
-    let result = await db.getEventByEventID(eventID, res);
+    let result = await db.getEventByEventID(eventID);
+    res.json(result);
     return result;
 });
 
 // Retrieve Events By User ID
 app.get('/:id', async function(req, res) {
     let studentID = req.params.id;
-    let result = await db.getEventsByUser(studentID, res);
+    let result = await db.getEventsByUser(studentID);
+    res.json(result);
     return result;
 });
 
@@ -109,11 +66,17 @@ app.post('/add', async function (req, res) {
 
     console.log(`Body as received by api: ${req.body}`)
 
-    let result = await db.addEvent(res, startDate, endDate, studentID, building, roomNo);
-    return result;
+    try{
+        let result = await db.addEvent(startDate, endDate, studentID, building, roomNo);
+        res.json(result);
+    } catch(err) {
+        res.status(500);
+        res.json({error: 'Database Error'})
+    }
+    
 })
 
-// DELETE - Delete an event
+// // DELETE - Delete an event
 
 
 
@@ -126,13 +89,17 @@ app.post('/update', async function(req, res) {
     const building = req.body.building;
     const roomNo = req.body.roomNo;
 
-    let result = await db.updateEvent(res, id, startDate, endDate, studentID, building, roomNo);
-    return result;
+    try{
+        let result = await db.updateEvent(id, startDate, endDate, studentID, building, roomNo);
+         res.json(result);
+    } catch(err) {
+        res.status(500);
+        res.json({error: 'Database Error'})
+    }
 })
 
 app.use(function(req, res) {
 	res.status(404);
-	res.render('404');
 });
 
 app.listen(PORT, function(){
