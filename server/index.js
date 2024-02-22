@@ -71,9 +71,9 @@ app.post('/add', async function (req, res) {
         res.json(result);
     } catch(err) {
         res.status(500);
+        console.error(err.message)
         res.json({error: 'Database Error'})
     }
-    
 })
 
 // // DELETE - Delete an event
@@ -94,6 +94,7 @@ app.post('/update', async function(req, res) {
          res.json(result);
     } catch(err) {
         res.status(500);
+        console.error(err.message)
         res.json({error: 'Database Error'})
     }
 })

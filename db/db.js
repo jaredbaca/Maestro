@@ -43,7 +43,6 @@ module.exports.getAllEvents = async() => {
         console.log(err);
     }
     
-    connection.release();
     return undefined;
 
 }
@@ -61,17 +60,19 @@ module.exports.getLocations = async() => {
         console.log(err);
     }
 
-    connection.release();
     return undefined;
 }
 
 // Get all events for a specified date
 module.exports.getEventByDate = async(date) => {
+    // let query = `SELECT * FROM Event
+    //     WHERE DATEDIFF(Start_Date, "${date}") = 0`;
+
     let query = `SELECT * FROM Event
-        WHERE DATEDIFF(Start_Date, "${date}") = 0`;
+    WHERE DATEDIFF(Start_Date, ?) = 0`;
 
     try{
-        const [results, fields] = await (await pool).execute(query);
+        const [results, fields] = await (await pool).execute(query, [date]);
         console.log(results);
         return results;
 
@@ -79,17 +80,17 @@ module.exports.getEventByDate = async(date) => {
         console.log(err);
     }
 
-    connection.release();
     return undefined;
 }
 
 // Get event by event ID
 module.exports.getEventByEventID = async(eventID) => {
-    let query = `SELECT * FROM Event
-        WHERE id = ${eventID}`;
+
+     let query = `SELECT * FROM Event 
+                WHERE id = ?`;
 
     try{
-        const [results, fields] = await (await pool).execute(query);
+        const [results, fields] = await (await pool).execute(query, [eventID]);
         console.log(results);
         return results;
 
@@ -97,17 +98,16 @@ module.exports.getEventByEventID = async(eventID) => {
         console.log(err);
     }
 
-    connection.release();
     return undefined;
 }
 
 // Get all events by user ID
 module.exports.getEventsByUser = async(studentID) => {
     let query = `SELECT * FROM Event
-        WHERE Student_Id = ${studentID}`;
+        WHERE Student_Id = ?`;
 
     try{
-        const [results, fields] = await (await pool).execute(query);
+        const [results, fields] = await (await pool).execute(query, [studentID]);
         console.log(results);
         return results;
 
@@ -115,7 +115,6 @@ module.exports.getEventsByUser = async(studentID) => {
         console.log(err);
     }
 
-    connection.release();
     return undefined;
 }
 
@@ -123,36 +122,20 @@ module.exports.getEventsByUser = async(studentID) => {
 // Add new event
 module.exports.addEvent = async(startDate, endDate, studentID, building, roomNo) => {
     const query = `INSERT INTO Event(Start_Date, End_Date, Student_Id, Building, Room_No)
-    VALUES("${startDate}", "${endDate}", ${studentID}, ${building}, "${roomNo}")`;
+    VALUES(?, ?, ?, ?, ?)`;
 
-    try{
-        const [results] = await (await pool).execute(query);
-        console.log(results);
-        return results;
-
-    } catch(err) {
-        console.log(err);
-    }
-
-    connection.release();
-    return undefined;
+    const [results] = await (await pool).execute(query, [startDate, endDate, studentID, building, roomNo]);
+    console.log(results);
+    return results;
 }
 
 // Update an existing event
 module.exports.updateEvent = async(id, startDate, endDate, studentID, building, roomNo) => {
     const query = `UPDATE Event
-    SET Start_Date = "${startDate}", End_Date = "${endDate}", Student_Id = ${studentID}, Building = ${building}, Room_No = "${roomNo}"
-    WHERE id = ${id}`;
+    SET Start_Date = ?, End_Date = ?, Student_Id = ?, Building = ?, Room_No = ?
+    WHERE id = ?`;
 
-    try{
-        const [results] = await (await pool).execute(query);
-        console.log(results);
-        return results;
-
-    } catch(err) {
-        console.log(err);
-    }
-
-    connection.release();
-    return undefined;
+    const [results] = await (await pool).execute(query, [startDate, endDate, studentID, building, roomNo, id]);
+    console.log(results);
+    return results;
 }
