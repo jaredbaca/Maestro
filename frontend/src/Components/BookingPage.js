@@ -20,15 +20,16 @@ function BookingPage() {
 
         const fetchLocations = async() => {
             const response = await fetch('/locations');
-            const data = await response.json();
-            setLocations(data);
-            // console.log(data);
-
-            let types = new Set(locations.map((location)=> location.Type))
-            setRoomTypes(Array.from(types));
-            setCurrentType(roomTypes[0]);
-
-            // setRoomTypes(locations.map((location) => location.Type))
+            
+            if(response.ok) {
+                const data = await response.json();
+                setLocations(data);
+                let types = new Set(locations.map((location)=> location.Type))
+                setRoomTypes(Array.from(types));
+                setCurrentType(roomTypes[0]);
+            } else {
+                console.log("api error occurred.")
+            }
         }
         fetchLocations();
 
@@ -67,7 +68,7 @@ function BookingPage() {
         }
         console.log(body);
 
-        const response = await fetch('/add', {
+        const response = await fetch('/events/add', {
             method: "POST",
             headers: {
                 "Accept" : "application/json",
@@ -77,7 +78,9 @@ function BookingPage() {
         })
         
         if(response.ok) {
+            alert("Event Successfully Scheduled!")
             console.log("Success")
+            // Redirect to home page or user page
         } else {
             console.log(response)
         }

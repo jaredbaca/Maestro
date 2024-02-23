@@ -13,6 +13,10 @@ function Admin() {
     const [events, setEvents] = useState(["test"]);
     const [date, setDate] = useState(new Date());
 
+    // const handleClick = (event) => {
+    //     navigate('/eventDetailsAdmin', {state: { eventID : event.target.id }})
+    // }
+
     useEffect(() => {
 
         // console.log(date.toUTCString());

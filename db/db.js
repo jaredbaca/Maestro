@@ -1,5 +1,12 @@
 const dotenv = require('dotenv');
-const mysql = require('mysql2');
+const mysql = require('mysql2/promise');
+
+/**
+ * This file establishes the connection to the MySQL database
+ * and defines the methods for database manipulation. 
+ * It abstracts the database layer out of the
+ * server code so that a different database could be used if necessary.
+ */
 
 // // Using hard coded values
 // const pool = mysql.createPool({
@@ -20,172 +27,123 @@ const pool = mysql.createPool({
     "timezone": 'Z'
 });
 
+
 module.exports.pool = pool;
 
-// Works - receives the req and res from the parent function
-module.exports.getAllEvents = async(req, res) => {
+// Get all scheduled events
+module.exports.getAllEvents = async() => {
     let query = "SELECT * FROM Event";
+
+    try{
+        const [results, fields] = await (await pool).execute(query);
+        console.log(results);
+        return results;
+
+    } catch(err) {
+        console.log(err);
+    }
     
-    pool.getConnection((err, connection) => {
-        if(err) {
-            console.error(err);
-        }
-
-        connection.query(query, (err, result) => {
-            if(err) {
-                console.error(err);
-            }
-
-            console.log(result);
-            res.json(result);
-
-            connection.release();
-        });
-    });
+    return undefined;
 }
 
 // Get All Locations
-module.exports.getLocations = async(req, res) => {
+module.exports.getLocations = async() => {
     let query = "SELECT * FROM Location";
 
-    pool.getConnection((err, connection) => {
-        if(err) {
-            console.error(err);
-        }
+    try{
+        const [results, fields] = await (await pool).execute(query);
+        console.log(results);
+        return results;
 
-        connection.query(query, (err, result) => {
-            if(err) {
-                console.error(err);
-            }
+    } catch(err) {
+        console.log(err);
+    }
 
-            console.log(result);
-            res.json(result);
-
-            connection.release();
-        });
-    });
+    return undefined;
 }
 
-// Search for events by date
-module.exports.getEventByDate = async(date, res) => {
+// Get all events for a specified date
+module.exports.getEventByDate = async(date) => {
+
     let query = `SELECT * FROM Event
-        WHERE DATEDIFF(Start_Date, "${date}") = 0`;
+    WHERE DATEDIFF(Start_Date, ?) = 0`;
 
-    pool.getConnection((err, connection) => {
-        if(err) {
-            console.error(err);
-        }
+    try{
+        const [results, fields] = await (await pool).execute(query, [date]);
+        console.log(results);
+        return results;
 
-        connection.query(query, (err, result) => {
-            if(err) {
-                console.error(err);
-            }
+    } catch(err) {
+        console.log(err);
+    }
 
-            console.log(result);
-            res.json(result);
-
-            connection.release();
-        });
-    });
+    return undefined;
 }
 
-// Search for events by user
-module.exports.getEventsByUser = async(studentID, res) => {
+// Get event by event ID
+module.exports.getEventByEventID = async(eventID) => {
+
+     let query = `SELECT * FROM Event 
+                WHERE id = ?`;
+
+    try{
+        const [results, fields] = await (await pool).execute(query, [eventID]);
+        console.log(results);
+        return results;
+
+    } catch(err) {
+        console.log(err);
+    }
+
+    return undefined;
+}
+
+// Get all events by user ID
+module.exports.getEventsByUser = async(studentID) => {
     let query = `SELECT * FROM Event
-        WHERE Student_Id = ${studentID}`;
+        WHERE Student_Id = ?`;
 
-    pool.getConnection((err, connection) => {
-        if(err) {
-            console.error(err);
-        }
+    try{
+        const [results, fields] = await (await pool).execute(query, [studentID]);
+        console.log(results);
+        return results;
 
-        connection.query(query, (err, result) => {
-            if(err) {
-                console.error(err);
-            }
+    } catch(err) {
+        console.log(err);
+    }
 
-            console.log(result);
-            res.json(result);
-
-            connection.release();
-        });
-    });
+    return undefined;
 }
 
-// Search for events by event ID
-module.exports.getEventByEventID = async(eventID, res) => {
-    let query = `SELECT * FROM Event
-        WHERE id = ${eventID}`;
-
-    pool.getConnection((err, connection) => {
-        if(err) {
-            console.error(err);
-        }
-
-        connection.query(query, (err, result) => {
-            if(err) {
-                console.error(err);
-            }
-
-            console.log(result);
-            res.json(result);
-
-            connection.release();
-        });
-    });
-}
 
 // Add new event
-module.exports.addEvent = async(res, startDate, endDate, studentID, building, roomNo) => {
+module.exports.addEvent = async(startDate, endDate, studentID, building, roomNo) => {
     const query = `INSERT INTO Event(Start_Date, End_Date, Student_Id, Building, Room_No)
-    VALUES("${startDate}", "${endDate}", ${studentID}, ${building}, "${roomNo}")`;
+    VALUES(?, ?, ?, ?, ?)`;
 
-    pool.getConnection((err, connection) => {
-        if(err) {
-            console.error(err);
-            res.status(500);
-            res.send(err);
-        }
-
-        connection.query(query, (err, result) => {
-            if(err) {
-                console.error(err);
-                res.status(500);
-                res.send(err);
-            }
-
-            console.log(result);
-            res.json(result);
-
-            connection.release();
-        });
-    });
+    const [results] = await (await pool).execute(query, [startDate, endDate, studentID, building, roomNo]);
+    console.log(results);
+    return results;
 }
 
-// Update existing event
-module.exports.updateEvent = async(res, id, startDate, endDate, studentID, building, roomNo) => {
+// Update an existing event
+module.exports.updateEvent = async(eventID, startDate, endDate, studentID, building, roomNo) => {
     const query = `UPDATE Event
-    SET Start_Date = "${startDate}", End_Date = "${endDate}", Student_Id = ${studentID}, Building = ${building}, Room_No = "${roomNo}"
-    WHERE id = ${id}`;
+    SET Start_Date = ?, End_Date = ?, Student_Id = ?, Building = ?, Room_No = ?
+    WHERE id = ?`;
 
-    pool.getConnection((err, connection) => {
-        if(err) {
-            console.error(err);
-            res.status(500);
-            res.send(err);
-        }
+    const [results] = await (await pool).execute(query, [startDate, endDate, studentID, building, roomNo, eventID]);
+    console.log(results);
+    return results;
+}
 
-        connection.query(query, (err, result) => {
-            if(err) {
-                console.error(err);
-                res.status(500);
-                res.send(err);
-            }
+// Delete an event
+module.exports.deleteEvent = async(eventID) => {
 
-            console.log(result);
-            res.json(result);
+    let query = `DELETE FROM Event 
+               WHERE id = ?`;
+       const [results] = await (await pool).execute(query, [eventID]);
+       console.log(results);
+       return results;
 
-            connection.release();
-        });
-    });
 }
