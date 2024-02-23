@@ -6,6 +6,7 @@ import { Chip, Select } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 import BookingForm from '../Components/BookingForm';
 
+
 function BookingPage() {
 
     // Fetch Locations
@@ -140,7 +141,7 @@ function BookingPage() {
                 </div>
 
                 
-
+                
                 
 
                 {/* <div>

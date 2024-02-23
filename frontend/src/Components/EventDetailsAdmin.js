@@ -42,11 +42,10 @@ function EventDetailsAdmin() {
     return(
         <div>
             <h1>Events Details Admin</h1>
-            <h1>{eventID}</h1>
-            <p>{event.Student_Id}</p>
-            <p>{event.Start_Date}</p>
-            <p>{event.Building}</p>
-            <p>{event.Room_No}</p>
+
+            {Object.entries(event).map(([key, value]) => (
+                <p key={key}>{key}: {value}</p>
+            ))}
             
         </div>
     );

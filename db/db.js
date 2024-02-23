@@ -83,8 +83,12 @@ module.exports.getEventByDate = async(date) => {
 // Get event by event ID
 module.exports.getEventByEventID = async(eventID) => {
 
-     let query = `SELECT * FROM Event 
-                WHERE id = ?`;
+    // Changed this to a JOIN in order to retrieve student data that can be shown on event details page.
+    let query = `SELECT * FROM Event
+                    NATURAL JOIN(
+                        SELECT id AS Student_Id, First, Last, Major, Semester, Instrument, Email
+                        FROM User) User
+                    WHERE id = ?`;
 
     try{
         const [results, fields] = await (await pool).execute(query, [eventID]);
