@@ -21,7 +21,7 @@ function EventList() {
             // const response = await fetch('/all-events');
 
             // using POST for request by date
-            const response = await fetch('/date', {
+            const response = await fetch('/events/date', {
                 method: "POST", 
                 body: JSON.stringify(body),
                 headers: {

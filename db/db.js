@@ -44,7 +44,6 @@ module.exports.getAllEvents = async() => {
     }
     
     return undefined;
-
 }
 
 // Get All Locations
@@ -65,8 +64,6 @@ module.exports.getLocations = async() => {
 
 // Get all events for a specified date
 module.exports.getEventByDate = async(date) => {
-    // let query = `SELECT * FROM Event
-    //     WHERE DATEDIFF(Start_Date, "${date}") = 0`;
 
     let query = `SELECT * FROM Event
     WHERE DATEDIFF(Start_Date, ?) = 0`;
@@ -130,12 +127,23 @@ module.exports.addEvent = async(startDate, endDate, studentID, building, roomNo)
 }
 
 // Update an existing event
-module.exports.updateEvent = async(id, startDate, endDate, studentID, building, roomNo) => {
+module.exports.updateEvent = async(eventID, startDate, endDate, studentID, building, roomNo) => {
     const query = `UPDATE Event
     SET Start_Date = ?, End_Date = ?, Student_Id = ?, Building = ?, Room_No = ?
     WHERE id = ?`;
 
-    const [results] = await (await pool).execute(query, [startDate, endDate, studentID, building, roomNo, id]);
+    const [results] = await (await pool).execute(query, [startDate, endDate, studentID, building, roomNo, eventID]);
     console.log(results);
     return results;
+}
+
+// Delete an event
+module.exports.deleteEvent = async(eventID) => {
+
+    let query = `DELETE FROM Event 
+               WHERE id = ?`;
+       const [results] = await (await pool).execute(query, [eventID]);
+       console.log(results);
+       return results;
+
 }
