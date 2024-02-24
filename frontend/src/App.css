@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+:root {
+  --event-colors: {
+    "Studio" : #E1341E,
+    "Practice Room" : #1ECBE1
+  }
+  
+  
+}
