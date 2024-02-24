@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 import BookingForm from '../Components/BookingForm';
 import {Form, Button, Card, Container, Row, Col} from 'react-bootstrap';
+import { Divider } from '@mui/material';
 
 function EventDetailsAdmin() {
 
@@ -200,6 +201,18 @@ function EventDetailsAdmin() {
                                                     </Form.Select>
                                                 </Form.Group>
 
+                                                <Form.Group className="mb-3" controlId="formStudentID">
+                                                    <Form.Label>Student ID</Form.Label>
+                                                    <Form.Control type="text" name="studentID" value={formData.studentID} defaultValue={event.Student_Id} onChange={handleChange}></Form.Control>
+                                                </Form.Group> 
+                                                
+                                                <div className='text-center mb-3 mt-4'>
+                                                        <Divider></Divider>
+
+                                                </div>
+
+                                
+
                                                 <Form.Group className="mb-3" controlId="formFirst">
                                                     <Form.Label>First</Form.Label>
                                                     <Form.Control type="text" name="first" value={formData.first} defaultValue={event.First} onChange={handleChange}></Form.Control>
@@ -210,10 +223,7 @@ function EventDetailsAdmin() {
                                                     <Form.Control type="text" name="last" value={formData.last} defaultValue={event.Last} onChange={handleChange}></Form.Control>
                                                 </Form.Group>
 
-                                                <Form.Group className="mb-3" controlId="formStudentID">
-                                                    <Form.Label>Student ID</Form.Label>
-                                                    <Form.Control type="text" name="studentID" value={formData.studentID} defaultValue={event.Student_Id} onChange={handleChange}></Form.Control>
-                                                </Form.Group>                                    
+                                                                                   
 
                                                 <div className="d-grid">
                                                     <Button variant="primary" type="submit">
