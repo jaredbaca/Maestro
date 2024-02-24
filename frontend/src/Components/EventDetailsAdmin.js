@@ -156,7 +156,7 @@ function EventDetailsAdmin() {
                             <Card className="shadow">
                                 <Card.Body>
                                     <div className="mb-3 mt-4">
-                                        <h2 className="fw-bold mb-4">Event Details</h2>
+                                        <h2 className="fw-bold mb-4">Event Details <span className='text-warning'>admin</span> </h2>
                                 
                                             <Form onSubmit={handleSubmit}>
 
