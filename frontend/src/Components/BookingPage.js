@@ -139,87 +139,85 @@ function BookingPage() {
         // 
     // }
     return(
-        <div>
-            {/* <h1>Event Booking</h1> */}
-                
-                <Container>
-                    <Row className="vh-100 d-flex justify-content-center align-items-center">
-                        <Col md={8} lg={6} xs={12}>
-                            <div className="border border-3 border-primary"></div>
-                                <Card className="shadow">
-                                    <Card.Body>
-                                        <div className="mb-3 mt-4">
-                                            <h2 className="fw-bold mb-4">Reserve</h2>
-                                    
-                                                <Form onSubmit={handleSubmit}>
-                                                    
-                                                    {/* <Form.Group className='mb-3' controlId="formLocation">
-                                                        <Form.Label>Type</Form.Label>
-                                                        <Form.Select onChange={handleChange} name="type">
-                                                            {
-                                                                roomTypes.map((type, index) => {
-                                                                return(<option key={index} value={type}>{type}</option>)
-                                                            })}
-                                                        </Form.Select>
-                                                    </Form.Group> */}
+        <div>                
+            <Container>
+                <Row className="vh-100 d-flex justify-content-center align-items-center">
+                    <Col md={8} lg={6} xs={12}>
+                        <div className="border border-3 border-primary"></div>
+                            <Card className="shadow">
+                                <Card.Body>
+                                    <div className="mb-3 mt-4">
+                                        <h2 className="fw-bold mb-4">Reserve</h2>
+                                
+                                            <Form onSubmit={handleSubmit}>
+                                                
+                                                {/* <Form.Group className='mb-3' controlId="formLocation">
+                                                    <Form.Label>Type</Form.Label>
+                                                    <Form.Select onChange={handleChange} name="type">
+                                                        {
+                                                            roomTypes.map((type, index) => {
+                                                            return(<option key={index} value={type}>{type}</option>)
+                                                        })}
+                                                    </Form.Select>
+                                                </Form.Group> */}
 
-                                                    <Form.Group className="mb-3" controlId="formStartDate">
-                                                        <Form.Label>Start</Form.Label>
-                                                        <Form.Control type="datetime-local" name="startDate" onChange={handleChange}></Form.Control>
-                                                    </Form.Group>
+                                                <Form.Group className="mb-3" controlId="formStartDate">
+                                                    <Form.Label>Start</Form.Label>
+                                                    <Form.Control type="datetime-local" name="startDate" onChange={handleChange}></Form.Control>
+                                                </Form.Group>
 
-                                                    <Form.Group className="mb-3" controlId="formEndDate">
-                                                        <Form.Label>End</Form.Label>
-                                                        <Form.Control type="datetime-local" name="endDate" onChange={handleChange}></Form.Control>
-                                                    </Form.Group>
+                                                <Form.Group className="mb-3" controlId="formEndDate">
+                                                    <Form.Label>End</Form.Label>
+                                                    <Form.Control type="datetime-local" name="endDate" onChange={handleChange}></Form.Control>
+                                                </Form.Group>
 
-                                                    {/* <Form.Group className="mb-3" controlId="formStartDate">
-                                                        <Form.Label>Date</Form.Label>
-                                                        <Form.Control type="date" name="startDate" onChange={handleChange}></Form.Control>
-                                                    </Form.Group> */}
+                                                {/* <Form.Group className="mb-3" controlId="formStartDate">
+                                                    <Form.Label>Date</Form.Label>
+                                                    <Form.Control type="date" name="startDate" onChange={handleChange}></Form.Control>
+                                                </Form.Group> */}
 
-                                                    <Form.Group className='mb-3' controlId="formLocation">
-                                                        <Form.Label>Location</Form.Label>
-                                                        <Form.Select onChange={handleChange} 
-                                                            name="location">
-                                                            <option></option>
-                                                            {locations.map((location, index) => {
-                                                            return(<option key={index} 
-                                                                value={`${location.Building},${location.Room_No}`}
-                                                                >{location.Building} - {location.Room_No} {location.Name}</option>)
-                                                            // }
-                                                            })}
-                                                        </Form.Select>
-                                                    </Form.Group>
+                                                <Form.Group className='mb-3' controlId="formLocation">
+                                                    <Form.Label>Location</Form.Label>
+                                                    <Form.Select onChange={handleChange} 
+                                                        name="location">
+                                                        <option></option>
+                                                        {locations.map((location, index) => {
+                                                        return(<option key={index} 
+                                                            value={`${location.Building},${location.Room_No}`}
+                                                            >{location.Building} - {location.Room_No} {location.Name}</option>)
+                                                        // }
+                                                        })}
+                                                    </Form.Select>
+                                                </Form.Group>
 
-                                                    <Form.Group className="mb-3" controlId="formFirst">
-                                                        <Form.Label>First</Form.Label>
-                                                        <Form.Control type="text" name="first" value={formData.first} onChange={handleChange}></Form.Control>
-                                                    </Form.Group>
+                                                <Form.Group className="mb-3" controlId="formFirst">
+                                                    <Form.Label>First</Form.Label>
+                                                    <Form.Control type="text" name="first" value={formData.first} onChange={handleChange}></Form.Control>
+                                                </Form.Group>
 
-                                                    <Form.Group className="mb-3" controlId="formLast">
-                                                        <Form.Label>Last</Form.Label>
-                                                        <Form.Control type="text" name="last" value={formData.last} onChange={handleChange}></Form.Control>
-                                                    </Form.Group>
+                                                <Form.Group className="mb-3" controlId="formLast">
+                                                    <Form.Label>Last</Form.Label>
+                                                    <Form.Control type="text" name="last" value={formData.last} onChange={handleChange}></Form.Control>
+                                                </Form.Group>
 
-                                                    <Form.Group className="mb-3" controlId="formStudentID">
-                                                        <Form.Label>Student ID</Form.Label>
-                                                        <Form.Control type="text" name="studentID" value={formData.studentID} onChange={handleChange}></Form.Control>
-                                                    </Form.Group>                                    
+                                                <Form.Group className="mb-3" controlId="formStudentID">
+                                                    <Form.Label>Student ID</Form.Label>
+                                                    <Form.Control type="text" name="studentID" value={formData.studentID} onChange={handleChange}></Form.Control>
+                                                </Form.Group>                                    
 
-                                                    <div className="d-grid">
-                                                        <Button variant="primary" type="submit">
-                                                            Submit
-                                                        </Button>
-                                                    </div>
-                                                </Form>
-                                    
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                        </Col>
-                    </Row>
-                </Container>
+                                                <div className="d-grid">
+                                                    <Button variant="primary" type="submit">
+                                                        Submit
+                                                    </Button>
+                                                </div>
+                                            </Form>
+                                
+                                    </div>
+                                </Card.Body>
+                            </Card>
+                    </Col>
+                </Row>
+            </Container>
         </div>
         
     )
