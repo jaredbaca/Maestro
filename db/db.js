@@ -34,32 +34,19 @@ module.exports.pool = pool;
 module.exports.getAllEvents = async() => {
     let query = "SELECT * FROM Event";
 
-    try{
-        const [results, fields] = await (await pool).execute(query);
-        console.log(results);
-        return results;
+    const [results, fields] = await (await pool).execute(query);
+    console.log("db read successful");
+    return results;
 
-    } catch(err) {
-        console.log(err);
-    }
-    
-    return undefined;
 }
 
 // Get All Locations
 module.exports.getLocations = async() => {
     let query = "SELECT * FROM Location";
 
-    try{
-        const [results, fields] = await (await pool).execute(query);
-        console.log(results);
-        return results;
-
-    } catch(err) {
-        console.log(err);
-    }
-
-    return undefined;
+    const [results, fields] = await (await pool).execute(query);
+    console.log(results);
+    return results;
 }
 
 // Get all events for a specified date
@@ -68,16 +55,9 @@ module.exports.getEventByDate = async(date) => {
     let query = `SELECT * FROM Event
     WHERE DATEDIFF(Start_Date, ?) = 0`;
 
-    try{
-        const [results, fields] = await (await pool).execute(query, [date]);
-        console.log(results);
-        return results;
-
-    } catch(err) {
-        console.log(err);
-    }
-
-    return undefined;
+    const [results, fields] = await (await pool).execute(query, [date]);
+    console.log(results);
+    return results;
 }
 
 // Get event by event ID
@@ -90,16 +70,9 @@ module.exports.getEventByEventID = async(eventID) => {
                         FROM User) User
                     WHERE id = ?`;
 
-    try{
-        const [results, fields] = await (await pool).execute(query, [eventID]);
-        console.log(results);
-        return results;
-
-    } catch(err) {
-        console.log(err);
-    }
-
-    return undefined;
+    const [results, fields] = await (await pool).execute(query, [eventID]);
+    console.log(results);
+    return results;
 }
 
 // Get all events by user ID
@@ -107,16 +80,9 @@ module.exports.getEventsByUser = async(studentID) => {
     let query = `SELECT * FROM Event
         WHERE Student_Id = ?`;
 
-    try{
-        const [results, fields] = await (await pool).execute(query, [studentID]);
-        console.log(results);
-        return results;
-
-    } catch(err) {
-        console.log(err);
-    }
-
-    return undefined;
+    const [results, fields] = await (await pool).execute(query, [studentID]);
+    console.log(results);
+    return results;
 }
 
 
@@ -146,8 +112,8 @@ module.exports.deleteEvent = async(eventID) => {
 
     let query = `DELETE FROM Event 
                WHERE id = ?`;
-       const [results] = await (await pool).execute(query, [eventID]);
-       console.log(results);
-       return results;
+    const [results] = await (await pool).execute(query, [eventID]);
+    console.log(results);
+    return results;
 
 }

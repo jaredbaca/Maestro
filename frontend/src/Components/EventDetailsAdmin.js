@@ -143,7 +143,7 @@ function EventDetailsAdmin() {
         if(response.ok) {
             alert("Event Successfully Updated!")
             console.log("Success")
-            navigate('/')
+            navigate('/admin')
         } else {
             console.log(response)
         }
@@ -164,7 +164,7 @@ function EventDetailsAdmin() {
         })
         
         if(response.ok) {
-            navigate('/')
+            navigate('/admin')
             alert("Event Successfully Deleted!");
             console.log("Success");
             // Redirect to home page or user page

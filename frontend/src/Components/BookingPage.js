@@ -9,10 +9,18 @@ import {Chip} from '@mui/material';
 import NavBar from './NavBar';
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * Imports an array of default location objects so that in the event of a database error
+ * the master calendar and booking form do not render without locations. Once locations
+ * have been successfully read from the database, the list will update to reflect any 
+ * newly added locations.
+ */
+const defaultLocations = require('./Constants').defaultLocations;
+
 
 function BookingPage() {
 
-    const [locations, setLocations] = useState([]);
+    const [locations, setLocations] = useState(defaultLocations);
     const [date, setDate] = useState(new Date());
     const [eventsByRoom, setEventsByRoom] = useState([]);
     const [roomTypes, setRoomTypes] = useState(locations.map((location) => location.Type));
@@ -104,6 +112,7 @@ function BookingPage() {
             navigate('/')
             
         } else {
+            alert("Oops! Could not complete request. Please try again.")
             console.log(response)
         }
         

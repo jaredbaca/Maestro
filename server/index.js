@@ -19,148 +19,203 @@ const db = require('../db/db.js');
 
 // Get All Events
 app.get('/events', async function (req, res) {
-    let result = await db.getAllEvents();
+    
+    try{
+        let result = await db.getAllEvents();
+        console.log("success");
+        console.log(result);
 
-    res.format({
+        res.format({
 
-        'application/json': function() {
-            res.json(result);
-        },
-
-        'application/xml': function() {
-            let resultXML =
-                `<?xml version="1.0"?>\n`
-            
-            for(let event of result) {
-                resultXML += `<event id="${event.ID}">
-                                <Start_Date>${event.Start_Date}</Start_Date>
-                                <End_Date>${event.End_Date}</End_Date>
-                                <Student_Id>${event.Student_Id}</Student_Id>
-                                <Building>${event.Building}</Building>
-                                <Room_No>${event.Room_No}</Room_No>
-                            </event>`
+            'application/json': function() {
+                res.json(result);
+            },
+    
+            'application/xml': function() {
+                let resultXML =
+                    `<?xml version="1.0"?>\n`
+                
+                for(let event of result) {
+                    resultXML += `<event id="${event.ID}">
+                                    <Start_Date>${event.Start_Date}</Start_Date>
+                                    <End_Date>${event.End_Date}</End_Date>
+                                    <Student_Id>${event.Student_Id}</Student_Id>
+                                    <Building>${event.Building}</Building>
+                                    <Room_No>${event.Room_No}</Room_No>
+                                </event>`
+                }
+    
+                res.type('application/xml');
+                res.send(resultXML);
             }
+            })
+        
 
-            res.type('application/xml');
-            res.send(resultXML);
-        }
-     })
+    } catch(err) {
+        res.status(500);
+        res.send(JSON.stringify({"error" : "database connection error"}));
+    }
+
+
 });
 
 
 // GET All Locations 
 app.get('/locations', async function (req, res) {
-    let result = await db.getLocations();
-    res.format({
 
-        'application/json': function() {
-            res.json(result);
-        },
+    try{
+        let result = await db.getLocations();
 
-        'application/xml': function() {
-            let resultXML =
-                `<?xml version="1.0"?>\n`
-            
-            for(let location of result) {
-                resultXML += `<location>
-                                <Name>${location.Name}</Name>
-                                <Building>${location.Building}</Building>
-                                <Room_No>${location.Room_No}</Room_No>
-                                <Type>${location.Type}</Type>
-                            </location>`
+        res.format({
+
+            'application/json': function() {
+                res.json(result);
+            },
+    
+            'application/xml': function() {
+                let resultXML =
+                    `<?xml version="1.0"?>\n`
+                
+                for(let location of result) {
+                    resultXML += `<location>
+                                    <Name>${location.Name}</Name>
+                                    <Building>${location.Building}</Building>
+                                    <Room_No>${location.Room_No}</Room_No>
+                                    <Type>${location.Type}</Type>
+                                </location>`
+                }
+    
+                res.type('application/xml');
+                res.send(resultXML);
             }
-
-            res.type('application/xml');
-            res.send(resultXML);
-        }
-     })
+        })
+    } catch(err) {
+        console.error(err);
+        res.status(500);
+        res.send(JSON.stringify({"error" : "database connection error"}));
+    }
+    
+    
+        
 });
 
 // Retrieve Events By Date (Must Be UTC)
 app.post('/events/date', async function(req, res) {
     let date = req.body.date;
-    let result = await db.getEventByDate(date);
-    res.format({
 
-        'application/json': function() {
-            res.json(result);
-        },
+    try{
+        let result = await db.getEventByDate(date);
 
-        'application/xml': function() {
-            let resultXML =
-                `<?xml version="1.0"?>\n`
-            
-            for(let event of result) {
-                resultXML += `<event id="${event.ID}">
-                                <Start_Date>${event.Start_Date}</Start_Date>
-                                <End_Date>${event.End_Date}</End_Date>
-                                <Student_Id>${event.Student_Id}</Student_Id>
-                                <Building>${event.Building}</Building>
-                                <Room_No>${event.Room_No}</Room_No>
-                            </event>`
+        res.format({
+
+            'application/json': function() {
+                res.json(result);
+            },
+    
+            'application/xml': function() {
+                let resultXML =
+                    `<?xml version="1.0"?>\n`
+                
+                for(let event of result) {
+                    resultXML += `<event id="${event.ID}">
+                                    <Start_Date>${event.Start_Date}</Start_Date>
+                                    <End_Date>${event.End_Date}</End_Date>
+                                    <Student_Id>${event.Student_Id}</Student_Id>
+                                    <Building>${event.Building}</Building>
+                                    <Room_No>${event.Room_No}</Room_No>
+                                </event>`
+                }
+    
+                res.type('application/xml');
+                res.send(resultXML);
             }
+            })
+        
+    } catch(err) {
+        console.log(err.message);
+        res.status(500);
+        res.send(JSON.stringify({"error" : "database connection error"}));
+    }
 
-            res.type('application/xml');
-            res.send(resultXML);
-        }
-     })
+    
+    
 });
 
 // Retrieve Event By Event ID
 app.post('/event', async function(req, res) {
     let eventID = req.body.eventID;
-    let result = await db.getEventByEventID(eventID);
-    res.format({
+    
+    try{
+        let result = await db.getEventByEventID(eventID);
 
-        'application/json': function() {
-            res.json(result);
-        },
+        res.format({
 
-        'application/xml': function() {
-            let resultXML =
-                `<?xml version="1.0"?>
-                    <event id="${result.ID}">
-                        <Start_Date>${result.Start_Date}</Start_Date>
-                        <End_Date>${result.End_Date}</End_Date>
-                        <Student_Id>${result.Student_Id}</Student_Id>
-                        <Building>${result.Building}</Building>
-                        <Room_No>${result.Room_No}</Room_No>
-                    </event>`
+            'application/json': function() {
+                res.json(result);
+            },
+    
+            'application/xml': function() {
+                let resultXML =
+                    `<?xml version="1.0"?>
+                        <event id="${result.ID}">
+                            <Start_Date>${result.Start_Date}</Start_Date>
+                            <End_Date>${result.End_Date}</End_Date>
+                            <Student_Id>${result.Student_Id}</Student_Id>
+                            <Building>${result.Building}</Building>
+                            <Room_No>${result.Room_No}</Room_No>
+                        </event>`
+    
+                res.type('application/xml');
+                res.send(resultXML);
+            }
+        })
+    } catch(err) {
+        console.log(err.message);
+        res.status(500);
+        res.send(JSON.stringify({"error" : "database connection error"}));
+    }
 
-            res.type('application/xml');
-            res.send(resultXML);
-        }
-     })
+    
 });
 
 // Retrieve Events By User ID
 app.get('/events/:studentID', async function(req, res) {
     let studentID = req.params.studentID;
-    let result = await db.getEventsByUser(studentID);
-    res.format({
 
-        'application/json': function() {
-            res.json(result);
-        },
+    try{
+        let result = await db.getEventsByUser(studentID);
 
-        'application/xml': function() {
-            let resultXML =
-                `<?xml version="1.0"?>\n`
-            
-            for(let event of result) {
-                resultXML += `<event id="${event.ID}">
-                                <Start_Date>${event.Start_Date}</Start_Date>
-                                <End_Date>${event.End_Date}</End_Date>
-                                <Student_Id>${event.Student_Id}</Student_Id>
-                                <Building>${event.Building}</Building>
-                                <Room_No>${event.Room_No}</Room_No>
-                            </event>`
+        res.format({
+
+            'application/json': function() {
+                res.json(result);
+            },
+    
+            'application/xml': function() {
+                let resultXML =
+                    `<?xml version="1.0"?>\n`
+                
+                for(let event of result) {
+                    resultXML += `<event id="${event.ID}">
+                                    <Start_Date>${event.Start_Date}</Start_Date>
+                                    <End_Date>${event.End_Date}</End_Date>
+                                    <Student_Id>${event.Student_Id}</Student_Id>
+                                    <Building>${event.Building}</Building>
+                                    <Room_No>${event.Room_No}</Room_No>
+                                </event>`
+                }
+    
+                res.type('application/xml');
+                res.send(resultXML);
             }
+        })
+    } catch(err) {
+        console.log(err.message);
+        res.status(500);
+        res.send(JSON.stringify({"error" : "database connection error"}));
+    }
 
-            res.type('application/xml');
-            res.send(resultXML);
-        }
-     })
+    
 });
 
 // POST - Schedule an event

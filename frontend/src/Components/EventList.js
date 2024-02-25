@@ -12,7 +12,7 @@ function EventList(props) {
 
     const navigate = useNavigate();
 
-    const [events, setEvents] = useState(["test"]);
+    const [events, setEvents] = useState([]);
     const [date, setDate] = useState(new Date());
 
     const defaultDate = new Date().toISOString().slice(0,10);
@@ -25,8 +25,6 @@ function EventList(props) {
         let body = {date}
 
         const fetchEvents = async() => {
-            // using get for all events
-            // const response = await fetch('/all-events');
 
             // using POST for request by date
             const response = await fetch('/events/date', {
