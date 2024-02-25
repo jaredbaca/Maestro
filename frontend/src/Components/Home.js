@@ -4,6 +4,7 @@ import Schedule from './Schedule';
 import NavBar from './NavBar';
 
 function Home() {
+
     return(
         <div>
             {/* <h1>Master Calendar</h1> */}

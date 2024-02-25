@@ -14,6 +14,9 @@ function EventList(props) {
 
     const [events, setEvents] = useState(["test"]);
     const [date, setDate] = useState(new Date());
+
+    const defaultDate = new Date().toISOString().slice(0,10);
+    console.log(defaultDate);
     
 
     useEffect(() => {
@@ -47,7 +50,7 @@ function EventList(props) {
         <div className="events-container">
 
             <div className="text-center mt-3 mb-3">
-                <input type="date" id="dateSelect" name="date" onChange={(event)=>setDate(event.target.value)}/>
+                <input type="date" id="dateSelect" name="date" defaultValue={defaultDate} onChange={(event)=>setDate(event.target.value)}/>
             </div>
             
             {/* <h5>{date.toLocaleDateString('en-us', { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' })}</h5> */}

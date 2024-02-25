@@ -22,7 +22,6 @@ function BookingPage() {
     const times = ["9:00AM - 11:00AM", "11:00AM - 1:00PM", "2:00PM - 4:00PM", "4:00PM - 6:00PM", 
     "6:00PM - 8:00PM", "8:00PM - 10:00PM", "10:00PM - 12:00AM", "12:00AM - 2:00AM", "2:00AM - 4:00AM", "4:00AM - 6:00AM"];
 
-
     // Fetch Locations
     useEffect(() => {
 
@@ -56,7 +55,6 @@ function BookingPage() {
 
 
     // Form Data
-    const [text, setText] = useState("");
     const [formData, setFormData] = useState({
         startDate: "",
         endDate: "",
@@ -116,7 +114,7 @@ function BookingPage() {
                             <Card className="shadow">
                                 <Card.Body>
                                     <div className="mb-3 mt-4">
-                                        <h2 className="fw-bold mb-4">Reserve</h2>
+                                        <h2 className="fw-bold mb-4">Reserve a Room</h2>
                                 
                                             <Form onSubmit={handleSubmit}>
                                                 

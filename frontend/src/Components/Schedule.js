@@ -96,7 +96,9 @@ function Schedule(props) {
                                                     className='text-center thick-border' 
                                                     style={{backgroundColor: locationColors[`${location.Type}`]}} 
                                                     colSpan={2} id={event.ID} 
-                                                    onClick={props.handleClick}>Event ID: {event.ID}</td>
+                                                    onClick={props.handleClick}>
+                                                        Event ID: {event.ID}
+                                                        </td>
                                                     ) 
                                                 } else {
                                                     return <td></td>
