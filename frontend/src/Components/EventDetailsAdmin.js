@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 import BookingForm from '../Components/BookingForm';
-import {Form, Button, Card, Container, Row, Col} from 'react-bootstrap';
+import {Form, Button, Card, Container, Row, Col, ButtonGroup} from 'react-bootstrap';
 import { Divider } from '@mui/material';
 
 function EventDetailsAdmin() {
@@ -121,8 +121,8 @@ function EventDetailsAdmin() {
 
         let body = {
             "eventID": event.ID,
-            "startDate" : event.Start_Date,
-            "endDate" : event.End_Date,
+            "startDate" : event.Start_Date.slice(0,-2),
+            "endDate" : event.End_Date.slice(0,-2),
             "studentID" : event.Student_Id,
             "building" : event.Building,
             "roomNo" : event.Room_No
@@ -143,7 +143,7 @@ function EventDetailsAdmin() {
         if(response.ok) {
             alert("Event Successfully Updated!")
             console.log("Success")
-            // Redirect to home page or user page
+            navigate('/')
         } else {
             console.log(response)
         }
@@ -274,12 +274,10 @@ function EventDetailsAdmin() {
                                                 
                                                 <Form.Group className="mb-5 mt-3" controlId="deleteEvent">
                                                     <Form.Text onClick={handleDelete} className='text-center text-danger'>Delete this event?</Form.Text>
-                                                </Form.Group> 
+                                                </Form.Group>
+                                                
+                                        
 
-                                                    
-            
-                                                    
-                                                    
                                                 
                                             </Form>
                                 

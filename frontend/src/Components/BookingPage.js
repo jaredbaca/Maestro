@@ -7,6 +7,7 @@ import BookingForm from '../Components/BookingForm';
 import {Form, Button, Card, Container, Row, Col} from 'react-bootstrap';
 import {Chip} from '@mui/material';
 import NavBar from './NavBar';
+import { useNavigate } from 'react-router-dom';
 
 
 function BookingPage() {
@@ -21,6 +22,8 @@ function BookingPage() {
     const [currentLocation, setCurrentLocation] = useState();
     const times = ["9:00AM - 11:00AM", "11:00AM - 1:00PM", "2:00PM - 4:00PM", "4:00PM - 6:00PM", 
     "6:00PM - 8:00PM", "8:00PM - 10:00PM", "10:00PM - 12:00AM", "12:00AM - 2:00AM", "2:00AM - 4:00AM", "4:00AM - 6:00AM"];
+
+    const navigate = useNavigate();
 
     // Fetch Locations
     useEffect(() => {
@@ -98,7 +101,8 @@ function BookingPage() {
         if(response.ok) {
             alert("Event Successfully Scheduled!")
             console.log("Success")
-            // Redirect to home page or user page
+            navigate('/')
+            
         } else {
             console.log(response)
         }
@@ -130,12 +134,12 @@ function BookingPage() {
 
                                                 <Form.Group className="mb-3" controlId="formStartDate">
                                                     <Form.Label>Start</Form.Label>
-                                                    <Form.Control type="datetime-local" name="startDate" onChange={handleChange}></Form.Control>
+                                                    <Form.Control type="datetime-local" name="startDate" defaultValue={new Date().toISOString().slice(0,-8)} onChange={handleChange}></Form.Control>
                                                 </Form.Group>
 
                                                 <Form.Group className="mb-3" controlId="formEndDate">
                                                     <Form.Label>End</Form.Label>
-                                                    <Form.Control type="datetime-local" name="endDate" onChange={handleChange}></Form.Control>
+                                                    <Form.Control type="datetime-local" name="endDate" defaultValue={new Date().toISOString().slice(0,-8)} onChange={handleChange}></Form.Control>
                                                 </Form.Group>
 
                                                 {/* <Form.Group className="mb-3" controlId="formStartDate">

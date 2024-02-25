@@ -5,7 +5,7 @@ function NavBar() {
     return (
         <Navbar bg="light" data-bs-theme="light">
             <Container>
-                <Navbar.Brand href="/">MusicSchool</Navbar.Brand>
+                <Navbar.Brand href="/">Maestro</Navbar.Brand>
                 <Nav className="me-auto">
                     <Nav.Link href="/">Home</Nav.Link>
                     <Nav.Link href="booking">Booking</Nav.Link>
