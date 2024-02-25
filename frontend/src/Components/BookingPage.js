@@ -6,6 +6,7 @@ import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 import BookingForm from '../Components/BookingForm';
 import {Form, Button, Card, Container, Row, Col} from 'react-bootstrap';
 import {Chip} from '@mui/material';
+import NavBar from './NavBar';
 
 
 function BookingPage() {
@@ -139,7 +140,8 @@ function BookingPage() {
         // 
     // }
     return(
-        <div>                
+        <div> 
+            <NavBar />               
             <Container>
                 <Row className="vh-100 d-flex justify-content-center align-items-center">
                     <Col md={8} lg={6} xs={12}>

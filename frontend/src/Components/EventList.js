@@ -3,14 +3,18 @@ import { getEvents } from './apiCalls';
 import Schedule from './Schedule';
 import DatePicker from "react-datepicker";
 import moment from 'moment';
+import {useNavigate} from 'react-router-dom';
 
 import "react-datepicker/dist/react-datepicker.css";
 import { FloatingLabel } from 'react-bootstrap';
 
-function EventList() {
+function EventList(props) {
+
+    const navigate = useNavigate();
 
     const [events, setEvents] = useState(["test"]);
     const [date, setDate] = useState(new Date());
+    
 
     useEffect(() => {
 
@@ -49,8 +53,7 @@ function EventList() {
             </div>
             
             {/* <h5>{date.toLocaleDateString('en-us', { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' })}</h5> */}
-            {/* <p> {JSON.stringify(events)}</p> */}
-            <Schedule events={events} date={date} />
+            <Schedule events={events} date={date} handleClick={props.handleClick} title="Master Schedule" subtitle={props.subtitle}/>
         </div>
     );
 }
