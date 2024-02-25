@@ -106,39 +106,6 @@ function BookingPage() {
         }
         
     }
-
-    // handle submit v2
-    // const handleSubmit = async (event) => {
-    //     event.preventDefault();
-    //     console.log(formData);
-
-    //     let body = {
-    //         "startDate" : formData.startDate,
-    //         "endDate" : formData.endDate,
-    //         "studentID" : formData.studentID,
-    //         "building" : formData.location.split(',')[0],
-    //         "roomNo" : formData.location.split(',')[1]
-    //     }
-    //     console.log(body);
-
-        // const response = await fetch('/events/add', {
-        //     method: "POST",
-        //     headers: {
-        //         "Accept" : "application/json",
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify(body)
-        // })
-        
-        // if(response.ok) {
-        //     alert("Event Successfully Scheduled!")
-        //     console.log("Success")
-        //     // Redirect to home page or user page
-        // } else {
-        //     console.log(response)
-        // }
-        // 
-    // }
     return(
         <div> 
             <NavBar />               

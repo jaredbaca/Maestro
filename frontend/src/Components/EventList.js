@@ -45,9 +45,7 @@ function EventList(props) {
     
     return(
         <div className="events-container">
-            {/* <DatePicker selected={date} onChange={(date) => {
-                setDate(date)
-            }} /> */}
+
             <div className="text-center mt-3 mb-3">
                 <input type="date" id="dateSelect" name="date" onChange={(event)=>setDate(event.target.value)}/>
             </div>
