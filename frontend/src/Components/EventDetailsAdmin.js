@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 import BookingForm from '../Components/BookingForm';
-import {Form, Button, Card, Container, Row, Col} from 'react-bootstrap';
+import {Form, Button, Card, Container, Row, Col, ButtonGroup} from 'react-bootstrap';
 import { Divider } from '@mui/material';
 
 function EventDetailsAdmin() {
@@ -16,6 +16,7 @@ function EventDetailsAdmin() {
     const eventID = location.state ? location.state.eventID : 4;
     const [event, setEvent] = useState([]);
     const [bookedStartDate, setBookedStartDate] = useState("");
+    const [bookedEndDate, setBookedEndDate] = useState("");
 
      // Form Data
      const [text, setText] = useState("");
@@ -52,7 +53,14 @@ function EventDetailsAdmin() {
                 const data = await response.json();
                 console.log(data);
                 setEvent(data[0]);
-                if(!bookedStartDate) setBookedStartDate(event.Start_Date);
+
+                //Set the default values for start and end date so they appear in form
+                if(bookedStartDate == "") {
+                    setBookedStartDate(data[0].Start_Date.slice(0,-1));  
+                }
+                if(bookedEndDate == "") {
+                    setBookedEndDate(data[0].End_Date.slice(0,-1));  
+                }
             
         };
         fetchEvent();
@@ -87,20 +95,40 @@ function EventDetailsAdmin() {
 
     const handleChange = (event) => {
         const {name, value} = event.target;
-        setFormData((prevFormData) => ({...prevFormData, [name]:value }));
+        // setFormData((prevFormData) => ({...prevFormData, [name]:value }));
+        // console.log(formData);
+
+        if(name == 'location') {
+            setEvent((prevEventData) => ({...prevEventData, "Building":value.split(',')[0], "Room_No":value.split(',')[1]}))
+
+        } else {
+            setEvent((prevEventData) => ({...prevEventData, [name]:value}))
+
+        }
+        console.log(event);
     }
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        console.log(formData);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // let body = {
+        //     "startDate" : formData.startDate,
+        //     "endDate" : formData.endDate,
+        //     "studentID" : formData.studentID,
+        //     "building" : formData.location.split(',')[0],
+        //     "roomNo" : formData.location.split(',')[1]
+        // }
 
         let body = {
-            "startDate" : formData.startDate,
-            "endDate" : formData.endDate,
-            "studentID" : formData.studentID,
-            "building" : formData.location.split(',')[0],
-            "roomNo" : formData.location.split(',')[1]
+            "eventID": event.ID,
+            "startDate" : event.Start_Date.slice(0,-2),
+            "endDate" : event.End_Date.slice(0,-2),
+            "studentID" : event.Student_Id,
+            "building" : event.Building,
+            "roomNo" : event.Room_No
         }
+
+        console.log("body");
         console.log(body);
 
         const response = await fetch('/events/update', {
@@ -109,13 +137,13 @@ function EventDetailsAdmin() {
                 "Accept" : "application/json",
                 "Content-Type": "application/json"
             },
-            body: event
+            body: JSON.stringify(body)
         })
         
         if(response.ok) {
             alert("Event Successfully Updated!")
             console.log("Success")
-            // Redirect to home page or user page
+            navigate('/')
         } else {
             console.log(response)
         }
@@ -168,13 +196,13 @@ function EventDetailsAdmin() {
                                                 <Form.Group className="mb-3" controlId="formStartDate">
                                                     <Form.Label>Start</Form.Label>
                                                 
-                                                    <Form.Control type="datetime-local" value={event.Start_Date} name="startDate" onChange={handleChange}></Form.Control>
+                                                    <Form.Control type="datetime-local" defaultValue={bookedStartDate} name="Start_Date" onChange={handleChange}></Form.Control>
                                                     {/* <Form.Text>{new Date(event.Start_Date).toUTCString()}</Form.Text> */}
                                                 </Form.Group>
 
                                                 <Form.Group className="mb-3" controlId="formEndDate">
                                                     <Form.Label>End</Form.Label>
-                                                    <Form.Control type="datetime-local" name="endDate" onChange={handleChange}></Form.Control>
+                                                    <Form.Control type="datetime-local" defaultValue={bookedEndDate} name="End_Date" onChange={handleChange}></Form.Control>
                                                     {/* <Form.Text>{new Date(event.End_Date).toUTCString()}</Form.Text> */}
                                                 </Form.Group>
 
@@ -203,7 +231,7 @@ function EventDetailsAdmin() {
 
                                                 <Form.Group className="mb-3" controlId="formStudentID">
                                                     <Form.Label>Student ID</Form.Label>
-                                                    <Form.Control type="text" name="studentID" value={formData.studentID} defaultValue={event.Student_Id} onChange={handleChange}></Form.Control>
+                                                    <Form.Control type="text" name="Student_Id" defaultValue={event.Student_Id} onChange={handleChange}></Form.Control>
                                                 </Form.Group> 
                                                 
                                                 <div className='text-center mb-3 mt-4'>
@@ -214,16 +242,29 @@ function EventDetailsAdmin() {
                                 
 
                                                 <Form.Group className="mb-3" controlId="formFirst">
-                                                    <Form.Label>First</Form.Label>
-                                                    <Form.Control type="text" name="first" value={formData.first} defaultValue={event.First} onChange={handleChange}></Form.Control>
+                                                    <Form.Label>Name</Form.Label>
+                                                    <Form.Control type="text" name="first" value={`${event.First} ${event.Last}`} disabled readonly></Form.Control>
                                                 </Form.Group>
 
-                                                <Form.Group className="mb-3" controlId="formLast">
+                                                {/* <Form.Group className="mb-3" controlId="formLast">
                                                     <Form.Label>Last</Form.Label>
-                                                    <Form.Control type="text" name="last" value={formData.last} defaultValue={event.Last} onChange={handleChange}></Form.Control>
-                                                </Form.Group>
+                                                    <Form.Control type="text" name="last" value={event.Last} disabled readonly></Form.Control>
+                                                </Form.Group> */}
 
-                                                                                   
+                                                <Form.Group className="mb-3" controlId="formMajor">
+                                                    <Form.Label>Major</Form.Label>
+                                                    <Form.Control type="text" name="major" value={event.Major} readOnly disabled></Form.Control>
+                                                </Form.Group>   
+
+                                                <Form.Group className="mb-3" controlId="semester">
+                                                    <Form.Label>Semester</Form.Label>
+                                                    <Form.Control type="text" name="semester" value={event.Semester} readOnly disabled></Form.Control>
+                                                </Form.Group>  
+
+                                                <Form.Group className="mb-3" controlId="email">
+                                                    <Form.Label>Email</Form.Label>
+                                                    <Form.Control type="text" name="email" value={event.Email} readOnly disabled></Form.Control>
+                                                </Form.Group>                           
 
                                                 <div className="d-grid">
                                                     <Button variant="primary" type="submit">
@@ -233,12 +274,10 @@ function EventDetailsAdmin() {
                                                 
                                                 <Form.Group className="mb-5 mt-3" controlId="deleteEvent">
                                                     <Form.Text onClick={handleDelete} className='text-center text-danger'>Delete this event?</Form.Text>
-                                                </Form.Group> 
+                                                </Form.Group>
+                                                
+                                        
 
-                                                    
-            
-                                                    
-                                                    
                                                 
                                             </Form>
                                 
