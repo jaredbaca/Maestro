@@ -20,10 +20,6 @@ function Schedule(props) {
     const navigate = useNavigate();
     const cardBodyRef = useRef(null);
 
-    const handleClick = (event) => {
-        navigate('/eventDetailsAdmin', {state: { eventID : event.target.id }})
-    }
-
     useEffect(() => {
 
         const fetchLocations = async() => {
@@ -52,6 +48,7 @@ function Schedule(props) {
 
                 <Card className='shadow'>
                     <Card.Body style={{overflowX: "auto", maxWidth: "100%"}}>
+                    <h2 className="fw-bold mb-4">{props.title}<span className='text-warning'> {props.subtitle}</span></h2>
                     {/* <div style={{maxWidth: "100%", overflowX: "auto"}}> */}
             {/* <h5>{props.date.toLocaleDateString('en-us', { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' })}</h5> */}
             <Table striped bordered id="scheduleTable">
@@ -95,7 +92,11 @@ function Schedule(props) {
                                                 if(event.Start_Date && event.Start_Date.slice(11,16)==time) {
                                                     // console.log(event.Start_Date.slice(11,16))
                                                     return(
-                                                    <td key={index} className='text-center thick-border' style={{backgroundColor: locationColors[`${location.Type}`]}} colSpan={2} id={event.ID} onClick={handleClick}>Event ID: {event.ID}</td>
+                                                    <td key={index} 
+                                                    className='text-center thick-border' 
+                                                    style={{backgroundColor: locationColors[`${location.Type}`]}} 
+                                                    colSpan={2} id={event.ID} 
+                                                    onClick={props.handleClick}>Event ID: {event.ID}</td>
                                                     ) 
                                                 } else {
                                                     return <td></td>
