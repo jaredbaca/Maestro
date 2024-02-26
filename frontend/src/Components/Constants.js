@@ -1,3 +1,9 @@
+    
+    /* Provides a hard coded list of location objects by default so that when the master schedule loads 
+    *  it is not missing locations. When locations are successfully loaded from the database, 
+    *  the list will update accordingly to account for any new locations that may have been added to the DB.
+    */
+
 const defaultLocations = [
     {Name: 'Practice Room - General', Building: 130, Room_No: 'A14', Type: 'Practice Room'},
     {Name: 'Practice Room - General', Building: 130, Room_No: 'A12', Type: 'Practice Room'},

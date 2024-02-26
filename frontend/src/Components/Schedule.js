@@ -119,7 +119,6 @@ function Schedule(props) {
                                         if(eventsByRoom.length > 0) {
                                             for(let event of eventsByRoom) {
                                                 if(event.Start_Date && event.Start_Date.slice(11,16)==time) {
-                                                    // console.log(event.Start_Date.slice(11,16))
                                                     return(
                                                     <td key={index} 
                                                     className='text-center thick-border' 

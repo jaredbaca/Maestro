@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import {useState, useEffect} from 'react';
-import ReactDatePicker from 'react-datepicker';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
-import BookingForm from '../Components/BookingForm';
 import {Form, Button, Card, Container, Row, Col} from 'react-bootstrap';
-import {Chip} from '@mui/material';
-import NavBar from './NavBar';
 import { useNavigate } from 'react-router-dom';
+import * as formik from 'formik';
+import * as yup from 'yup';
 
 /**
  * Imports an array of default location objects so that in the event of a database error
@@ -32,6 +28,7 @@ function BookingPage() {
     "6:00PM - 8:00PM", "8:00PM - 10:00PM", "10:00PM - 12:00AM", "12:00AM - 2:00AM", "2:00AM - 4:00AM", "4:00AM - 6:00AM"];
 
     const navigate = useNavigate();
+    const { Formik } = formik; 
 
     // Fetch Locations
     useEffect(() => {
@@ -74,6 +71,18 @@ function BookingPage() {
         studentID: "",
         location: ""
     })
+
+    // Define the schema for form validation
+    const schema = yup.object().shape({
+        startDate: yup.date().required(),
+        endDate: yup.date().required().when('startDate', (startDate, schema) => {return schema.min(startDate, 'End date must be after start date')}),
+        first: yup.string().required(),
+        last: yup.string().required(),
+        studentID: yup.number().required(),
+        location: yup.object().shape({
+            selectField: yup.string().required('Please select an option')
+        })
+    });
 
     const handleChange = (event) => {
         const {name, value} = event.target;
@@ -119,7 +128,6 @@ function BookingPage() {
     }
     return(
         <div> 
-            <NavBar />               
             <Container>
                 <Row className="vh-100 d-flex justify-content-center align-items-center">
                     <Col md={8} lg={6} xs={12}>
@@ -151,11 +159,6 @@ function BookingPage() {
                                                     <Form.Control type="datetime-local" name="endDate" defaultValue={new Date().toISOString().slice(0,-8)} onChange={handleChange}></Form.Control>
                                                 </Form.Group>
 
-                                                {/* <Form.Group className="mb-3" controlId="formStartDate">
-                                                    <Form.Label>Date</Form.Label>
-                                                    <Form.Control type="date" name="startDate" onChange={handleChange}></Form.Control>
-                                                </Form.Group> */}
-
                                                 <Form.Group className='mb-3' controlId="formLocation">
                                                     <Form.Label>Location</Form.Label>
                                                     <Form.Select onChange={handleChange} 
@@ -165,7 +168,6 @@ function BookingPage() {
                                                         return(<option key={index} 
                                                             value={`${location.Building},${location.Room_No}`}
                                                             >{location.Building} - {location.Room_No} {location.Name}</option>)
-                                                        // }
                                                         })}
                                                     </Form.Select>
                                                 </Form.Group>
