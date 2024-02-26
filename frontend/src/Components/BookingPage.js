@@ -172,7 +172,7 @@ function BookingPage() {
                                                     <Form.Label>End</Form.Label>
                                                     <Form.Control required isInvalid={formData.endDate < formData.startDate} type="datetime-local" name="endDate" defaultValue={new Date().toISOString().slice(0,-8)} onChange={handleChange}></Form.Control>
                                                     <Form.Control.Feedback type="invalid">
-                                                        End date must be after start date.
+                                                        End date must be after start date
                                                     </Form.Control.Feedback>
                                                 </Form.Group>
 
