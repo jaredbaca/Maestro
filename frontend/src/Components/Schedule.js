@@ -8,38 +8,31 @@ import '../App.css';
 const defaultLocations = require('./Constants').defaultLocations;
 
 function Schedule(props) {
-    const times = ["09:00", "10:00", "11:00", "12:00", "13:00:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "0:00"];
+    const times = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "0:00"];
     const locationColors = {
         // Canva "Padlocked Doors" Pallette
-        "Studio": "#B99095",
-        "Practice Room": "#FCB5AC",
-        "Ensemble Room" : "#B5E5CF",
-        "Production Suite": "#3D5B59",
-    }
+        // "Studio": "#B99095",
+        // "Practice Room": "#FCB5AC",
+        // "Ensemble Room" : "#B5E5CF",
+        // "Production Suite": "#3D5B59",
 
-    /* Provides a hard coded list of location objects by default so that when the master schedule loads 
-    *  it is not missing locations. When locations are successfully loaded from the database, 
-    *  the list will update accordingly to account for any new locations that may have been added to the DB.
-    */
-    // const defaultLocations = [
-    //     {Name:'Practice Room - General', Buildng: 130, Room_No: 'A14', Type: 'Practice Room'},
-    //     {Name: 'Practice Room - General', Building: 130, Room_No: 'A12', Type: 'Practice Room'},
-    //     {Name: 'Practice Room - Baby Grand', Building: 171, Room_No: '110', Type: 'Practice Room'},
-    //     {Name: 'Practice Room - Concert Grand', Building: 171, Room_No: '106', Type: 'Practice Room'},
-    //     {Name: 'Practice Room - Drums', Building: 921, Room_No: 'B11', Type: 'Practice Room'},
-    //     {Name: 'Studio A', Building: 150, Room_No: '126', Type: 'Studio'},
-    //     {Name: 'Production Suite A', Building: 160, Room_No: 'B16', Type: 'Production Suite'},
-    //     {Name: undefined, Building: 136, Room_No: '116', Type: 'Ensemble Room'},
-    //     {Name: 'Studio B', Building: 150, Room_No: '127', Type: 'Studio'},
-    //     {Name: 'Large Ensemble Room', Building: 130, Room_No: '211', Type: 'Ensemble Room'},
-    //     {Name: 'Mastering Suite', Building: 160, Room_No: 'B253', Type: 'Studio'},
-    //     {Name: 'Analog Synth Room', Building: 150, Room_No: 'B51', Type: 'Studio'}
-    // ]
+        // Apple Shine
+        "Studio": "#FF8370",
+        "Practice Room": "#00B1B0",
+        "Ensemble Room" : "#FEC84D",
+        "Production Suite": "#A98AB0",
+    }
 
     const [locations, setLocations] = useState(defaultLocations);
 
     const navigate = useNavigate();
     const cardBodyRef = useRef(null);
+
+    //Calculates the duration of an event based on start/end time
+    function calculateTimeSpan(startTime, endTime) {
+        let duration = new Date(endTime).getHours() - new Date(startTime).getHours();
+        return duration;
+    }
 
     useEffect(() => {
 
@@ -112,7 +105,7 @@ function Schedule(props) {
                         return(
                             // filter events by location and date/time to fill cells
                             <tr key={index} style={{whiteSpace:'nowrap'}}>
-                                <td>{location.Name ? location.Name : `${location.Building} - ${location.Room_No}`}</td>
+                                <td >{location.Name ? location.Name : `${location.Building} - ${location.Room_No}`}</td>
 
                                 {
                                     times.map((time, index) => {
@@ -122,14 +115,14 @@ function Schedule(props) {
                                                     return(
                                                     <td key={index} 
                                                     className='text-center thick-border' 
-                                                    style={{backgroundColor: locationColors[`${location.Type}`]}} 
-                                                    colSpan={2} id={event.ID} 
+                                                    style={{maxWidth: '50px', overflow:'hidden', backgroundColor: locationColors[`${location.Type}`]}} 
+                                                    colSpan={calculateTimeSpan(event.Start_Date, event.End_Date)} id={event.ID} 
                                                     onClick={props.handleClick}>
-                                                        Event ID: {event.ID}
+                                                        {`${event.First} ${event.Last}`}
                                                         </td>
                                                     ) 
                                                 } else {
-                                                    return <td></td>
+                                                    return <td ></td>
                                                 }
                                             } 
                                         } else {
