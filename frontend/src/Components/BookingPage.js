@@ -24,8 +24,11 @@ function BookingPage() {
     const [currentType, setCurrentType] = useState(roomTypes[0]);
     // const [bookedTimes, setBookedTimes] = useState([]);
     const [currentLocation, setCurrentLocation] = useState();
+    const [validated, setValidated] = useState(false);
+
     const times = ["9:00AM - 11:00AM", "11:00AM - 1:00PM", "2:00PM - 4:00PM", "4:00PM - 6:00PM", 
     "6:00PM - 8:00PM", "8:00PM - 10:00PM", "10:00PM - 12:00AM", "12:00AM - 2:00AM", "2:00AM - 4:00AM", "4:00AM - 6:00AM"];
+
 
     const navigate = useNavigate();
     const { Formik } = formik; 
@@ -95,7 +98,13 @@ function BookingPage() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(formData);
+
+        const form = event.currentTarget;
+        if(form.checkValidity() === false) {
+            event.stopPropagation();
+        } else {
+            console.log("submitted");
+            console.log(formData);
 
         let body = {
             "startDate" : formData.startDate,
@@ -124,6 +133,11 @@ function BookingPage() {
             alert("Oops! Could not complete request. Please try again.")
             console.log(response)
         }
+        }
+
+        setValidated(true);
+        
+        
         
     }
     return(
@@ -136,8 +150,8 @@ function BookingPage() {
                                 <Card.Body>
                                     <div className="mb-3 mt-4">
                                         <h2 className="fw-bold mb-4">Reserve a Room</h2>
-                                
-                                            <Form onSubmit={handleSubmit}>
+                                        
+                                            <Form noValidate validated={validated} onSubmit={handleSubmit}>
                                                 
                                                 {/* <Form.Group className='mb-3' controlId="formLocation">
                                                     <Form.Label>Type</Form.Label>
@@ -151,17 +165,17 @@ function BookingPage() {
 
                                                 <Form.Group className="mb-3" controlId="formStartDate">
                                                     <Form.Label>Start</Form.Label>
-                                                    <Form.Control type="datetime-local" name="startDate" defaultValue={new Date().toISOString().slice(0,-8)} onChange={handleChange}></Form.Control>
+                                                    <Form.Control required type="datetime-local" name="startDate" defaultValue={new Date().toISOString().slice(0,-8)} onChange={handleChange}></Form.Control>
                                                 </Form.Group>
 
                                                 <Form.Group className="mb-3" controlId="formEndDate">
                                                     <Form.Label>End</Form.Label>
-                                                    <Form.Control type="datetime-local" name="endDate" defaultValue={new Date().toISOString().slice(0,-8)} onChange={handleChange}></Form.Control>
+                                                    <Form.Control required type="datetime-local" name="endDate" defaultValue={new Date().toISOString().slice(0,-8)} onChange={handleChange}></Form.Control>
                                                 </Form.Group>
 
                                                 <Form.Group className='mb-3' controlId="formLocation">
                                                     <Form.Label>Location</Form.Label>
-                                                    <Form.Select onChange={handleChange} 
+                                                    <Form.Select required onChange={handleChange} 
                                                         name="location">
                                                         <option></option>
                                                         {locations.map((location, index) => {
@@ -184,7 +198,15 @@ function BookingPage() {
 
                                                 <Form.Group className="mb-3" controlId="formStudentID">
                                                     <Form.Label>Student ID</Form.Label>
-                                                    <Form.Control type="text" name="studentID" value={formData.studentID} onChange={handleChange}></Form.Control>
+                                                    <Form.Control 
+                                                        required
+                                                        type="text" 
+                                                        name="studentID" 
+                                                        value={formData.studentID} 
+                                                        onChange={handleChange} 
+                                                        >
+
+                                                    </Form.Control>
                                                 </Form.Group>                                    
 
                                                 <div className="d-grid">
@@ -192,7 +214,7 @@ function BookingPage() {
                                                         Submit
                                                     </Button>
                                                 </div>
-                                            </Form>
+                                            </Form> 
                                 
                                     </div>
                                 </Card.Body>
