@@ -53,6 +53,9 @@ module.exports.getLocations = async() => {
 module.exports.getEventByDate = async(date) => {
 
     let query = `SELECT * FROM Event
+    NATURAL JOIN(
+        SELECT id AS Student_Id, First, Last, Major, Semester, Instrument, Email
+        FROM User) User
     WHERE DATEDIFF(Start_Date, ?) = 0`;
 
     const [results, fields] = await (await pool).execute(query, [date]);
