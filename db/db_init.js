@@ -1,123 +1,191 @@
 const dotenv = require('dotenv');
-const db = require('./db.js').pool
+dotenv.config({ path: '.././.env' });
+const mysql = require('mysql2');
 
-/**
- * THIS DELETES ALL EXISTING ROWS IN THE DATABASE. USE WITH CAUTION.
- */
+//   // Using hard coded values
+//   const connection = mysql.createConnection({
+//     "host": "localhost",
+//     "user": "admin",
+//     "password": "CS602_Admin",
+//     "database": "CS602_FinalProject2",
+//     "timezone": 'Z'
+// });
 
-// BE CAREFUL - DELETES ALL USER ROWS
-const deleteExistingUsers = "DELETE from User;";
+// const db_username = process.env.MYSQL_USERNAME;
+// const db_password = process.env.MYSQL_PASSWORD;
 
-// DELETE ALL LOCATIONS
-const deleteExistingLocations = "DELETE from Location;";
+// console.log(`${db_username} ${db_password}`);
 
-// DELETE ALL EVENTS
-const deleteExistingEvents = "DELETE from Event;";
+// Using environment variables
+const connection = mysql.createConnection({
+    "host": process.env.HOST,
+    "user": process.env.MYSQL_USERNAME,
+    "password": process.env.MYSQL_PASSWORD,
+    "database": process.env.DB_NAME,
+    "timezone": 'Z'
+});
 
-const addInitialUsers = 
-`INSERT INTO User VALUES
-(0505567, 'Jared', 'Baca', 'CWP', 7, 'Trumpet', 'jbaca@jaredbaca.com'), 
-(0354121, 'Amadeus', 'Mozart', 'COMP', 1, 'Piano', 'amozart@jaredbaca.com'), 
-(0583983, 'John', 'Lennon', 'SONG', 5, 'Guitar', 'jlennon@jaredbaca.com'), 
-(0996352, 'John', 'Williams', 'FS', 8, 'Piano', 'jwilliams@jaredbaca.com'), 
-(0583986, 'Wayne', 'Shorter', 'PERF', 3, 'Saxophone', 'wshorter@jaredbaca.com'), 
-(0154027, 'Quincy', 'Jones', 'MPE', 2, 'Trumpet', 'qjones@jaredbaca.com'), 
-(0161221, 'Bootsy', 'Collins', 'PERF', 4, 'Bass', 'bcollins@jaredbaca.com'), 
-(0634144, 'Ludwig','Goransson',	'FS', 6, 'Piano', 'lgoransson@jaredbaca.com'), 
-(0941178, 'Yo Yo', 'Ma', 'PERF', 2, 'Cello', 'yma@jaredbaca.com'), 
-(0307449, 'Hans', 'Zimmer', 'EPD', 5, 'Piano', 'hzimmer@jaredbaca.com') ,
-(0243347, 'Haley', 'Williams', 'MPE', 4, 'Voice', 'hwilliams@jaredbaca.com'), 
-(0965841, 'Jack' , 'White', 'CWP', 3, 'Guitar', 'jwhite@jaredbaca.com'), 
-(0656314, 'Jill', 'Scott', 'SONG', 8, 'Voice', 'jscott@jaredbaca.com')`;
+const createUserTable =
+`CREATE TABLE IF NOT EXISTS User (
+    id int NOT NULL,
+    First varchar(45) DEFAULT NULL,
+    Last varchar(45) DEFAULT NULL,
+    Major varchar(45) DEFAULT NULL,
+    Semester int DEFAULT NULL,
+    Instrument varchar(45) DEFAULT NULL,
+    Email varchar(45) DEFAULT NULL,
+    PRIMARY KEY (id),
+    KEY Student_id_idx (id)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;`;
 
-const populateLocations =
-`INSERT INTO Location VALUES
-('Practice Room - General', 130, 'A14', 'Practice Room'),
-('Practice Room - General', 130, 'A12', 'Practice Room'),
-('Practice Room - Baby Grand', 171, '110', 'Practice Room'),
-('Practice Room - Concert Grand', 171, '106', 'Practice Room'),
-('Practice Room - Drums', 921, 'B11', 'Practice Room'),
-('Studio A', 150, '126', 'Studio'),
-('Production Suite A', 160, 'B16', 'Production Suite'),
-(NULL, 136, '116', 'Ensemble Room'),
-('Studio B', 150, '127', 'Studio'),
-('Large Ensemble Room', 130, '211', 'Ensemble Room'),
-('Mastering Suite', 160, 'B253', 'Studio'),
-('Analog Synth Room', 150, 'B51', 'Studio')`;
+  const createLocationTable =
+  `CREATE TABLE IF NOT EXISTS Location (
+    Name varchar(45) DEFAULT NULL,
+    Building int NOT NULL,
+    Room_No varchar(45) NOT NULL,
+    Type varchar(45) DEFAULT NULL,
+    PRIMARY KEY (Building, Room_No),
+    KEY Building_Idx (Building),
+    KEY Room_No_Idx (Room_No)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci`;
 
-const populateEvents = 
-`INSERT INTO Event(Start_Date, End_Date, Student_Id, Building, Room_No) VALUES
-('2024-03-01 18:00:00', '2024-03-01 20:00:00', 0243347, 150, '127'),
-('2024-03-01 18:00:00', '2024-03-01 20:00:00', 0161221, 136, '116'),
-('2024-03-01 14:00:00', '2024-03-01 16:00:00', 0941178, 130, 'A14'),
-('2024-03-01 20:00:00', '2024-03-01 22:00:00', 0161221, 160, 'B16')`;
+  const createEventTable =
+  `CREATE TABLE IF NOT EXISTS Event (
+    ID int NOT NULL AUTO_INCREMENT,
+    Start_Date datetime NOT NULL,
+    End_Date datetime DEFAULT NULL,
+    Student_Id int DEFAULT NULL,
+    Building int NOT NULL,
+    Room_No varchar(45) NOT NULL,
+    PRIMARY KEY (ID),
+    KEY Student_Id_idx (Student_Id),
+    KEY Building_idx (Building),
+    KEY Room_No_idx (Room_No),
+    CONSTRAINT Building FOREIGN KEY (Building) REFERENCES Location (Building) ON UPDATE CASCADE,
+    CONSTRAINT Room_No FOREIGN KEY (Room_No) REFERENCES Location (Room_No) ON UPDATE CASCADE,
+    CONSTRAINT Student_Id FOREIGN KEY (Student_Id) REFERENCES User (id) ON DELETE SET NULL ON UPDATE CASCADE
+  ) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci`;
+
+const populateUserTable = 
+`INSERT INTO User 
+SELECT *
+FROM (
+	VALUES
+	ROW(0505567, 'Jared', 'Baca', 'CWP', 7, 'Trumpet', 'jbaca@jaredbaca.com'), 
+	ROW(0354121, 'Amadeus', 'Mozart', 'COMP', 1, 'Piano', 'amozart@jaredbaca.com'), 
+	ROW(0583983, 'John', 'Lennon', 'SONG', 5, 'Guitar', 'jlennon@jaredbaca.com'), 
+	ROW(0996352, 'John', 'Williams', 'FS', 8, 'Piano', 'jwilliams@jaredbaca.com'), 
+	ROW(0583986, 'Wayne', 'Shorter', 'PERF', 3, 'Saxophone', 'wshorter@jaredbaca.com'), 
+	ROW(0154027, 'Quincy', 'Jones', 'MPE', 2, 'Trumpet', 'qjones@jaredbaca.com'), 
+	ROW(0161221, 'Bootsy', 'Collins', 'PERF', 4, 'Bass', 'bcollins@jaredbaca.com'), 
+	ROW(0634144, 'Ludwig','Goransson',	'FS', 6, 'Piano', 'lgoransson@jaredbaca.com'), 
+	ROW(0941178, 'Yo Yo', 'Ma', 'PERF', 2, 'Cello', 'yma@jaredbaca.com'), 
+	ROW(0307449, 'Hans', 'Zimmer', 'EPD', 5, 'Piano', 'hzimmer@jaredbaca.com') ,
+	ROW(0243347, 'Haley', 'Williams', 'MPE', 4, 'Voice', 'hwilliams@jaredbaca.com'), 
+	ROW(0965841, 'Jack' , 'White', 'CWP', 3, 'Guitar', 'jwhite@jaredbaca.com'), 
+	ROW(0656314, 'Jill', 'Scott', 'SONG', 8, 'Voice', 'jscott@jaredbaca.com')
+    ) as initial_users
+
+WHERE NOT EXISTS (
+SELECT NULL 
+FROM User
+)`;
+
+const populateLocationTable = 
+`INSERT INTO Location 
+SELECT *
+FROM (
+	VALUES
+	ROW('Practice Room - General', 130, 'A14', 'Practice Room'),
+    ROW('Practice Room - General', 130, 'A12', 'Practice Room'),
+    ROW('Practice Room - Baby Grand', 171, '110', 'Practice Room'),
+    ROW('Practice Room - Concert Grand', 171, '106', 'Practice Room'),
+    ROW('Practice Room - Drums', 921, 'B11', 'Practice Room'),
+    ROW('Studio A', 150, '126', 'Studio'),
+    ROW('Production Suite A', 160, 'B16', 'Production Suite'),
+    ROW(NULL, 136, '116', 'Ensemble Room'),
+    ROW('Studio B', 150, '127', 'Studio'),
+    ROW('Large Ensemble Room', 130, '211', 'Ensemble Room'),
+    ROW('Mastering Suite', 160, 'B253', 'Studio'),
+    ROW('Analog Synth Room', 150, 'B51', 'Studio')
+        ) as initial_locations
+
+WHERE NOT EXISTS (
+SELECT NULL 
+FROM Location
+)`;
+
+const populateEventTable = 
+`INSERT INTO Event(Start_Date, End_Date, Student_Id, Building, Room_No)
+SELECT *
+FROM (
+	VALUES
+	ROW('2024-03-01 18:00:00', '2024-03-01 20:00:00', 0243347, 150, '127'),
+    ROW('2024-03-01 18:00:00', '2024-03-01 20:00:00', 0161221, 136, '116'),
+    ROW('2024-03-01 14:00:00', '2024-03-01 16:00:00', 0941178, 130, 'A14'),
+    ROW('2024-03-01 20:00:00', '2024-03-01 22:00:00', 0161221, 160, 'B16')
+        ) as initial_events
+
+WHERE NOT EXISTS (
+SELECT NULL 
+FROM Event
+)`;
 
 
-
-db.getConnection((err, connection) => {
+// CREATE USER TABLE
+connection.query(createUserTable, (err, result) => {
     if(err) {
-        console.error(err)
+        console.log(err)
+    } else {
+        console.log("User Table Created")
     }
-
-    // DELETE EXISTING USERS
-    connection.query(deleteExistingUsers, (err, result) => {
-        if(err) {
-            console.error(err)
-        } else {
-            console.log("Users Deleted")
-        }
-        // connection.release()
-    });
-    
-    // DELETE EXISTING EVENTS
-    connection.query(deleteExistingEvents, (err, result) => {
-        if(err) {
-            console.error(err)
-        } else {
-            console.log("Events Deleted")
-        }
-        // connection.release()
-    });
-
-    // DELETE EXISTING LOCATIONS
-    connection.query(deleteExistingLocations, (err, result) => {
-        if(err) {
-            console.error(err)
-        } else {
-            console.log("Locations Deleted")
-        }
-        // connection.release()
-    });
-
-    // POPULATE WITH INITIAL USERS
-    connection.query(addInitialUsers, (err, result) => {
-        if(err) {
-            console.log(err)
-        } else {
-            console.log("Users added")
-        }
-        // connection.release()
-    })
-
-    // POPULATE WITH INITIAL LOCATIONS
-    connection.query(populateLocations, (err, result) => {
-        if(err) {
-            console.log(err)
-        } else {
-            console.log("Locations added")
-        }
-        connection.release()
-    })
-
-    // POPULATE WITH INITIAL EVENTS
-    connection.query(populateEvents, (err, result) => {
-        if(err) {
-            console.log(err)
-        } else {
-            console.log("Events added")
-        }
-        connection.release()
-    })
-
 })
+
+// CREATE LOCATION TABLE
+connection.query(createLocationTable, (err, result) => {
+    if(err) {
+        console.log(err)
+    } else {
+        console.log("Location Table Created")
+    }
+})
+
+// CREATE EVENT TABLE
+connection.query(createEventTable, (err, result) => {
+    if(err) {
+        console.log(err)
+    } else {
+        console.log("Event Table Created")
+    }
+})
+
+// POPULATE WITH INITIAL USERS
+connection.query(populateUserTable, (err, result) => {
+    if(err) {
+        console.log(err)
+    } else {
+        console.log("Users added")
+    }
+})
+
+// POPULATE WITH INITIAL LOCATIONS
+connection.query(populateLocationTable, (err, result) => {
+    if(err) {
+        console.log(err)
+    } else {
+        console.log("Locations added")
+    }
+})
+
+// POPULATE WITH INITIAL EVENTS
+connection.query(populateEventTable, (err, result) => {
+    if(err) {
+        console.log(err)
+    } else {
+        console.log("Events added")
+    }
+})
+
+connection.end();
+
 

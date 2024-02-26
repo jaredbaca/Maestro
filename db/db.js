@@ -1,5 +1,5 @@
-const dotenv = require('dotenv');
-const mysql = require('mysql2/promise');
+// const dotenv = require('dotenv');
+const mysql_promise = require('mysql2/promise');
 
 /**
  * This file establishes the connection to the MySQL database
@@ -9,20 +9,23 @@ const mysql = require('mysql2/promise');
  */
 
 // // Using hard coded values
-// const pool = mysql.createPool({
+// const pool = mysql_promise.createPool({
 //     "host": "localhost",
 //     "user": "admin",
 //     "password": "CS602_Admin",
-//     "database": "CS602_FinalProject",
-//     "connectionLimit": 15
+//     "database": "CS602_FinalProject2",
+//     "connectionLimit": 15,
+//     "timezone": 'Z'
 // });
 
+console.log(`${db_username} ${db_password}`);
+
 // Using environment variables
-const pool = mysql.createPool({
+const pool = mysql_promise.createPool({
     "host": process.env.HOST,
-    "user": process.env.MYSQL_USERNAME,
-    "password": process.env.MYSQL_PASSWORD,
-    "database": "CS602_FinalProject",
+    "user": db_username,
+    "password": db_password,
+    "database": process.env.DB_NAME,
     "connectionLimit": 15,
     "timezone": 'Z'
 });
