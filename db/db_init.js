@@ -67,7 +67,6 @@ db.getConnection((err, connection) => {
             console.log("Users Deleted")
         }
         // connection.release()
-
     });
     
     // DELETE EXISTING EVENTS
@@ -78,7 +77,6 @@ db.getConnection((err, connection) => {
             console.log("Events Deleted")
         }
         // connection.release()
-
     });
 
     // DELETE EXISTING LOCATIONS
@@ -89,7 +87,6 @@ db.getConnection((err, connection) => {
             console.log("Locations Deleted")
         }
         // connection.release()
-
     });
 
     // POPULATE WITH INITIAL USERS
@@ -99,7 +96,6 @@ db.getConnection((err, connection) => {
         } else {
             console.log("Users added")
         }
-
         // connection.release()
     })
 
@@ -110,7 +106,6 @@ db.getConnection((err, connection) => {
         } else {
             console.log("Locations added")
         }
-
         connection.release()
     })
 
@@ -121,7 +116,6 @@ db.getConnection((err, connection) => {
         } else {
             console.log("Events added")
         }
-
         connection.release()
     })
 

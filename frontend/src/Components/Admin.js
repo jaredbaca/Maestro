@@ -21,7 +21,6 @@ function Admin() {
     
     return(
         <div>
-            <NavBar />
             <EventList subtitle="admin" handleClick={handleClick}/>
 
         </div>

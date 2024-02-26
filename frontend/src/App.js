@@ -9,12 +9,13 @@ import Nav from './Components/Nav';
 import NotFound from './Components/NotFound';
 import Admin from './Components/Admin';
 import EventDetailsAdmin from './Components/EventDetailsAdmin';
+import NavBar from './Components/NavBar.js';
 
 function App() {
   return (
     <Router>
       <div>
-        {/* <Nav/> */}
+        <NavBar />
         <Routes>
           <Route exact path="/" Component={Home} />
           <Route path="/booking" Component={BookingPage} />

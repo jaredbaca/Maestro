@@ -12,7 +12,6 @@ function EventDetailsAdmin() {
 
     const [locations, setLocations] = useState([]);
     const location = useLocation();
-    // const {state} = location;
     const eventID = location.state ? location.state.eventID : 4;
     const [event, setEvent] = useState([]);
     const [bookedStartDate, setBookedStartDate] = useState("");
@@ -110,14 +109,6 @@ function EventDetailsAdmin() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // let body = {
-        //     "startDate" : formData.startDate,
-        //     "endDate" : formData.endDate,
-        //     "studentID" : formData.studentID,
-        //     "building" : formData.location.split(',')[0],
-        //     "roomNo" : formData.location.split(',')[1]
-        // }
 
         let body = {
             "eventID": event.ID,

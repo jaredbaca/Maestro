@@ -7,8 +7,6 @@ function Home() {
 
     return(
         <div>
-            {/* <h1>Master Calendar</h1> */}
-            <NavBar />
             <EventList />
 
         </div>
