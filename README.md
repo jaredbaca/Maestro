@@ -20,10 +20,10 @@
 -->
 
 
-<h3 align="center">project_title</h3>
+<h3 align="center">Maestro</h3>
 
   <p align="center">
-    project_description
+    Maestro is a scheduling software designed for reserving rehearsal spaces in music program or educational setting. While the platform could be applied more generally, it was designed with music spaces in mind, including rehearsal rooms, recording studios, and practice rooms. 
     <br />
     <br />
     <a href="https://github.com/github_username/repo_name">View Demo</a>
@@ -66,8 +66,6 @@
 <img width="1470" alt="Screen Shot 2024-02-28 at 11 14 26 AM" src="https://github.com/jaredbaca/SchedulingSite/assets/110132943/41767486-4de5-431c-9eef-eaddbcaa0e7b">
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-Maestro is a scheduling software designed for reserving rehearsal spaces in music program or educational setting. While the platform could be applied more generally, it was designed with music spaces in mind, including rehearsal rooms, recording studios, and practice rooms. 
 
 The application contains a database of students, locations, and scheduled events. The web interface allows for viewing current bookings, reserving a space, and provides an admin view for editing and deleting events. Maestro enforces basic scheduling constraints, preventing scheduling conflicts and checking student ID numbers against the student information database.
 
