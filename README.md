@@ -75,10 +75,13 @@ The application contains a database of students, locations, and scheduled events
 
 ### Built With
 
-<ol>
+<ul>
 	<li><a href="https://nodejs.org/en">Node.js</a></li>
 	<li><a href="https://expressjs.com">Express</a></li>
-</ol>
+	<li><a href="https://www.mysql.com">MySQL</a></li>
+	<li><a href="https://react.dev">React</a></li>
+	<li><a href="https://getbootstrap.com/">Bootstrap</a></li>
+</ul>
 -[Node][https://nodejs.org/en]
 -Express
 -MySQL
