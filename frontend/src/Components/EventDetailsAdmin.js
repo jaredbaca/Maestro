@@ -260,10 +260,15 @@ function EventDetailsAdmin() {
                                                     <Form.Control type="text" name="semester" value={event.Semester} readOnly disabled></Form.Control>
                                                 </Form.Group>  
 
+                                                <Form.Group className="mb-3" controlId="instrument">
+                                                    <Form.Label>Instrument</Form.Label>
+                                                    <Form.Control type="text" name="instrument" value={event.Instrument} readOnly disabled></Form.Control>
+                                                </Form.Group> 
+
                                                 <Form.Group className="mb-3" controlId="email">
                                                     <Form.Label>Email</Form.Label>
                                                     <Form.Control type="text" name="email" value={event.Email} readOnly disabled></Form.Control>
-                                                </Form.Group>                           
+                                                </Form.Group>                          
 
                                                 <div className="d-grid">
                                                     <Button variant="primary" type="submit">
