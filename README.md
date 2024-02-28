@@ -62,8 +62,7 @@
 ## About The Project
 <img width="1470" alt="Screen Shot 2024-02-28 at 11 15 32 AM" src="https://github.com/jaredbaca/SchedulingSite/assets/110132943/e2d088ea-1f36-4226-befd-30445c984160">
 <img width="1467" alt="Screen Shot 2024-02-28 at 11 15 20 AM" src="https://github.com/jaredbaca/SchedulingSite/assets/110132943/1c3a5735-088c-42dd-a6f8-fb7e2d74a7f3">
-<img width="1469" alt="Screen Shot 2024-02-28 at 11 15 08 AM" src="https://github.com/jaredbaca/SchedulingSite/assets/110132943/bbcc107c-eb11-4397-9318-9698d5f848f0">
-<img width="1470" alt="Screen Shot 2024-02-28 at 11 14 26 AM" src="https://github.com/jaredbaca/SchedulingSite/assets/110132943/41767486-4de5-431c-9eef-eaddbcaa0e7b">
+
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
