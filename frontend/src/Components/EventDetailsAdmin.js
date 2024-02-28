@@ -136,6 +136,7 @@ function EventDetailsAdmin() {
             console.log("Success")
             navigate('/admin')
         } else {
+            response.json().then(data => alert(data.message ? data.message : "Unable to complete request"))
             console.log(response)
         }
         

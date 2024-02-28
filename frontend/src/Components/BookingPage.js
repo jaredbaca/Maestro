@@ -130,7 +130,7 @@ function BookingPage() {
             navigate('/')
             
         } else {
-            alert("Oops! Could not complete request. Please try again.")
+            response.json().then(data => alert(data.message ? data.message : "Unable to complete request"))
             console.log(response)
         }
         }

@@ -18,13 +18,12 @@ const mysql_promise = require('mysql2/promise');
 //     "timezone": 'Z'
 // });
 
-console.log(`${db_username} ${db_password}`);
 
 // Using environment variables
 const pool = mysql_promise.createPool({
     "host": process.env.HOST,
-    "user": db_username,
-    "password": db_password,
+    "user": process.env.MYSQL_USERNAME,
+    "password": process.env.MYSQL_PASSWORD,
     "database": process.env.DB_NAME,
     "connectionLimit": 15,
     "timezone": 'Z'
@@ -48,7 +47,7 @@ module.exports.getLocations = async() => {
     let query = "SELECT * FROM Location";
 
     const [results, fields] = await (await pool).execute(query);
-    console.log(results);
+    // console.log(results);
     return results;
 }
 
@@ -62,7 +61,7 @@ module.exports.getEventByDate = async(date) => {
     WHERE DATEDIFF(Start_Date, ?) = 0`;
 
     const [results, fields] = await (await pool).execute(query, [date]);
-    console.log(results);
+    // console.log(results);
     return results;
 }
 
@@ -88,6 +87,15 @@ module.exports.getEventsByUser = async(studentID) => {
 
     const [results, fields] = await (await pool).execute(query, [studentID]);
     console.log(results);
+    return results;
+}
+
+// Get events by date and room
+module.exports.getEventsByDateAndRoom = async(startDate, building, roomNo) => {
+    let query = `SELECT ID FROM Event
+                WHERE Start_Date = ? AND Building = ? AND Room_No = ?`;
+    const [results] = await (await pool).execute(query, [startDate, building, roomNo]);
+    // console.log(results);
     return results;
 }
 
@@ -122,4 +130,13 @@ module.exports.deleteEvent = async(eventID) => {
     console.log(results);
     return results;
 
+}
+
+// Get User by ID
+module.exports.getUserById = async(id) => {
+    let query = `SELECT * FROM User
+                WHERE id = ?`;
+    const [results, fields] = await (await pool).execute(query, [id]);
+    console.log(results)
+    return results;
 }
