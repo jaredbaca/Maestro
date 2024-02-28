@@ -88,7 +88,6 @@
 Maestro is a scheduling software designed for reserving rehearsal spaces in music program or educational setting. While the platform could be applied more generally, it was designed with music spaces in mind, including rehearsal rooms, recording studios, and practice rooms. 
 
 The application contains a database of students, locations, and scheduled events. The web interface allows for viewing current bookings, reserving a space, and provides an admin view for editing and deleting events. Maestro enforces basic scheduling constraints, preventing scheduling conflicts and checking student ID numbers against the student information database.
-![image](https://github.com/jaredbaca/SchedulingSite/assets/110132943/2b8d6a01-1614-4696-abc0-7f7d137f0916)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -142,7 +141,6 @@ This will launch the React development server on localhost:3000. If a browser do
 
 The React frontend forwards all API requests to the Node.js server on port 4000. This is set with the “proxy” setting in the React package.json file. To make calls to the API directly, such as with Postman or in the browser, make sure to use port 4000. 
 Usage
-![image](https://github.com/jaredbaca/SchedulingSite/assets/110132943/b40c498a-b122-4342-b12c-e5b2a3f6c76e)
 
 ### Installation
 
@@ -168,13 +166,11 @@ The usage of the application should be straightforward. The navigation bar conta
 •	More granular booking restrictions for individual spaces, such as that a student be in a specific major, instrument, or semester level.
 •	Additional UI features such as forward/back arrows for the date, details available when hovering over calendar events, and confirmation prompt before deleting an event.
 •	A user-facing event details page that is read-only
-![image](https://github.com/jaredbaca/SchedulingSite/assets/110132943/3546e1cc-ff39-48a1-b92f-401187bde1b7)
 
 ### Long Term Desirable Features
 •	User accounts
 •	Equipment checkout options 
 •	Accompanying mobile app
-![image](https://github.com/jaredbaca/SchedulingSite/assets/110132943/3ff8439e-459b-4de1-979f-a22f83a51032)
 
 
 
