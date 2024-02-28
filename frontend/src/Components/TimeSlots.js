@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Container, Grid } from 'react-bootstrap';
 import {Chip} from '@mui/material';
 
+// Comonent for showing available times as chips. Not currently used.
+
 function TimeSlots() {
     return(
         <Container className='mb-3'>

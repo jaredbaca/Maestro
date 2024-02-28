@@ -5,7 +5,6 @@ import EventList from './Components/EventList';
 import Schedule from './Components/Schedule';
 import Home from './Components/Home';
 import BookingPage from './Components/BookingPage';
-import Nav from './Components/Nav';
 import NotFound from './Components/NotFound';
 import Admin from './Components/Admin';
 import EventDetailsAdmin from './Components/EventDetailsAdmin';
