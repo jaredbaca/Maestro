@@ -18,19 +18,12 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
 
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
+  <a href="https://github.com/jaredbaca/SchedulingSite">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -43,10 +36,6 @@
     <br />
     <br />
     <a href="https://github.com/github_username/repo_name">View Demo</a>
-    ·
-    <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
   </p>
 </div>
 
@@ -72,7 +61,7 @@
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <li><a href="#acknowledgments">Resources</a></li>
   </ol>
 </details>
 
@@ -80,6 +69,10 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+<img width="1470" alt="Screen Shot 2024-02-28 at 11 15 32 AM" src="https://github.com/jaredbaca/SchedulingSite/assets/110132943/e2d088ea-1f36-4226-befd-30445c984160">
+<img width="1467" alt="Screen Shot 2024-02-28 at 11 15 20 AM" src="https://github.com/jaredbaca/SchedulingSite/assets/110132943/1c3a5735-088c-42dd-a6f8-fb7e2d74a7f3">
+<img width="1469" alt="Screen Shot 2024-02-28 at 11 15 08 AM" src="https://github.com/jaredbaca/SchedulingSite/assets/110132943/bbcc107c-eb11-4397-9318-9698d5f848f0">
+<img width="1470" alt="Screen Shot 2024-02-28 at 11 14 26 AM" src="https://github.com/jaredbaca/SchedulingSite/assets/110132943/41767486-4de5-431c-9eef-eaddbcaa0e7b">
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
@@ -109,7 +102,7 @@ Working with Maestro in development mode requires Node.js and npm (Node Package 
 
 Once Node.js and npm have been installed, all additional dependencies can be installed by running the npm install terminal command in the root directory.
 
-### Setting up the MySQl database
+### Setting up the MySQL database
 
 This project requires connecting to an existing MySQL database. The db_init file will create the necessary tables along with primary and foreign keys, as well as populate the database with initial data. To do so, it must have a database name, host, and login credentials. These details can be added to the .env file for use in the rest of the application. If forking this repository on GitHub, the .env file is not included for obvious reasons. In that case, simply create a .env file and place it in the root directory.
 
