@@ -39,7 +39,6 @@ module.exports.getAllEvents = async() => {
     const [results, fields] = await (await pool).execute(query);
     console.log("db read successful");
     return results;
-
 }
 
 // Get All Locations

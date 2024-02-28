@@ -47,35 +47,3 @@ db.getConnection((err, connection) => {
         }
         // connection.release()
     });
-
-    // POPULATE WITH INITIAL USERS
-    connection.query(addInitialUsers, (err, result) => {
-        if(err) {
-            console.log(err)
-        } else {
-            console.log("Users added")
-        }
-        // connection.release()
-    })
-
-    // POPULATE WITH INITIAL LOCATIONS
-    connection.query(populateLocations, (err, result) => {
-        if(err) {
-            console.log(err)
-        } else {
-            console.log("Locations added")
-        }
-        connection.release()
-    })
-
-    // POPULATE WITH INITIAL EVENTS
-    connection.query(populateEvents, (err, result) => {
-        if(err) {
-            console.log(err)
-        } else {
-            console.log("Events added")
-        }
-        connection.release()
-    })
-
-})

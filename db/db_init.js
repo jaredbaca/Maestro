@@ -1,6 +1,16 @@
 const dotenv = require('dotenv');
 dotenv.config({ path: '.././.env' });
-const mysql = require('mysql2');
+const mysql = require('mysql2'); 
+// Does not use pool from the db.js file because that one uses Promise Wrapper 
+
+/**
+ * This file will seed the MySQL database with initial data. It will not create the database, but
+ * will create the necessary tables and rows if the database already exists.
+ * 
+ * To get started, create a MySQL database and user. Add the host, username, password, and database name
+ * to the .env file with the variables properly named. When run, this script will create tables (if they dont' exist)
+ * and insert rows(if tables are empty). It will not remove any data, and it will not insert rows into non-empty tables.
+ */
 
 //   // Using hard coded values
 //   const connection = mysql.createConnection({
@@ -10,11 +20,6 @@ const mysql = require('mysql2');
 //     "database": "CS602_FinalProject2",
 //     "timezone": 'Z'
 // });
-
-// const db_username = process.env.MYSQL_USERNAME;
-// const db_password = process.env.MYSQL_PASSWORD;
-
-// console.log(`${db_username} ${db_password}`);
 
 // Using environment variables
 const connection = mysql.createConnection({

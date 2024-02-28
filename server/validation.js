@@ -7,6 +7,8 @@ const db = require('../db/db.js').pool;
 */
 
 // Validates start/end date
+// eventID is only passed when updating an evenet (not adding), so it's set to null
+// by default.
 module.exports.isValidDate = async(startDate, endDate, building, roomNo, eventID = null) => {
     
     let start_date = new Date(startDate);
@@ -42,6 +44,7 @@ module.exports.isValidDate = async(startDate, endDate, building, roomNo, eventID
         console.log("passed: time slot not taken")
     }
 
+    //All checks passed, date is valid
     return true;
 }
 

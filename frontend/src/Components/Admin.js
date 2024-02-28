@@ -1,5 +1,4 @@
 import React, { Component, useState, useEffect } from 'react';
-import { getEvents } from './apiCalls';
 import Schedule from './Schedule';
 import DatePicker from "react-datepicker";
 import moment from 'moment';

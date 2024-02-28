@@ -1,10 +1,14 @@
 import React, { Component, useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
-import BookingForm from '../Components/BookingForm';
 import {Form, Button, Card, Container, Row, Col, ButtonGroup} from 'react-bootstrap';
 import { Divider } from '@mui/material';
+
+/**
+ * Provides a form for the admin to update event details. Editable fields are the start/end date,
+ * Location, and Student ID.
+ * Student data at the bottom is read-only, and is based on the student ID that is entered.
+ */
 
 function EventDetailsAdmin() {
 
@@ -12,32 +16,34 @@ function EventDetailsAdmin() {
 
     const [locations, setLocations] = useState([]);
     const location = useLocation();
+
+    //Event ID for current event, passed from the scheduler component
     const eventID = location.state ? location.state.eventID : 4;
     const [event, setEvent] = useState([]);
+
+    //Default values for start date and end date
     const [bookedStartDate, setBookedStartDate] = useState("");
     const [bookedEndDate, setBookedEndDate] = useState("");
 
-     // Form Data
-     const [text, setText] = useState("");
-     const [formData, setFormData] = useState({
-         startDate: "",
-         endDate: "",
-         first: "",
-         last: "",
-         studentID: "",
-         location: ""
-     })
+    // No longer necessary since form modified event data directly. Keeping here just in case.
 
-    // Fetch Event Details
+    //  //Form Data
+    //  const [formData, setFormData] = useState({
+    //      startDate: "",
+    //      endDate: "",
+    //      first: "",
+    //      last: "",
+    //      studentID: "",
+    //      location: ""
+    //  })
+
+    // Fetch Event Details for Date
     useEffect(() => {
 
-        // console.log(date.toUTCString());
         let body = {eventID}
         console.log(`Event ID: ${eventID}`)
 
         const fetchEvent = async() => {
-            // using get for all events
-            // const response = await fetch('/all-events');
 
             // using POST for request by date
                 const response = await fetch('/event', {
@@ -78,7 +84,9 @@ function EventDetailsAdmin() {
             
             if(response.ok) {
                 const data = await response.json();
-                setLocations(data);     
+                setLocations(data);   
+                
+                // // For filtering the Locations by Room Type (work in progress)
                 // let types = new Set(locations.map((location)=> location.Type))
                 // setRoomTypes(Array.from(types));
                 // setCurrentType(roomTypes[0]);
@@ -107,6 +115,8 @@ function EventDetailsAdmin() {
         console.log(event);
     }
 
+    // Form Submission Function
+    // Submits properties of current event object to api via POST request
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -118,9 +128,6 @@ function EventDetailsAdmin() {
             "building" : event.Building,
             "roomNo" : event.Room_No
         }
-
-        console.log("body");
-        console.log(body);
 
         const response = await fetch('/events/update', {
             method: "POST",
@@ -142,9 +149,9 @@ function EventDetailsAdmin() {
         
     }
 
-    // Delete
-    const handleDelete = async(event) => {
-        event.preventDefault();
+    // Delete Event
+    const handleDelete = async(e) => {
+        e.preventDefault();
 
         const response = await fetch('/events/delete', {
             method: "POST",
@@ -253,10 +260,15 @@ function EventDetailsAdmin() {
                                                     <Form.Control type="text" name="semester" value={event.Semester} readOnly disabled></Form.Control>
                                                 </Form.Group>  
 
+                                                <Form.Group className="mb-3" controlId="instrument">
+                                                    <Form.Label>Instrument</Form.Label>
+                                                    <Form.Control type="text" name="instrument" value={event.Instrument} readOnly disabled></Form.Control>
+                                                </Form.Group> 
+
                                                 <Form.Group className="mb-3" controlId="email">
                                                     <Form.Label>Email</Form.Label>
                                                     <Form.Control type="text" name="email" value={event.Email} readOnly disabled></Form.Control>
-                                                </Form.Group>                           
+                                                </Form.Group>                          
 
                                                 <div className="d-grid">
                                                     <Button variant="primary" type="submit">
