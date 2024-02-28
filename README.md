@@ -75,7 +75,7 @@ The application contains a database of students, locations, and scheduled events
 
 ### Built With
 
-* [![Node.js][Node.js]][[React-url](https://nodejs.org/en)]
+* [![Node.js][Node.js]](https://nodejs.org/en)]
 * [![React][React.js]][React-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 * 
