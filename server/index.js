@@ -1,15 +1,17 @@
 const dotenv = require('dotenv');
 dotenv.config({ path: '.././.env' });
 const express = require('express');
+const validation = require('./validation.js');
 const app = express();
 const router = express.Router;
 var bodyParser = require('body-parser');
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
 const PORT = process.env.PORT || 3001;
-console.log(process.env.PORT);
+console.log(process.env.PORT);  
 
 // Import DB object
 const db = require('../db/db.js');
@@ -99,7 +101,7 @@ app.get('/locations', async function (req, res) {
         
 });
 
-// Retrieve Events By Date (Must Be UTC)
+// Retrieve Events By Date
 app.post('/events/date', async function(req, res) {
     let date = req.body.date;
 
@@ -137,8 +139,6 @@ app.post('/events/date', async function(req, res) {
         res.send(JSON.stringify({"error" : "database connection error"}));
     }
 
-    
-    
 });
 
 // Retrieve Event By Event ID
@@ -178,9 +178,47 @@ app.post('/event', async function(req, res) {
     
 });
 
+// Retrieve Event By Date and Location (used to verify that space is available)
+app.post('/event/date/location', async function(req, res) {
+    let startDate = req.body.startDate;
+    let building = req.body.building;
+    let roomNo = req.body.roomNo;
+    
+    try{
+        let result = await db.getEventsByDateAndRoom(startDate, building, roomNo);
+
+        res.format({
+
+            'application/json': function() {
+                res.json(result);
+            },
+    
+            'application/xml': function() {
+                let resultXML =
+                    `<?xml version="1.0"?>\n`
+                
+                for(let event of result) {
+                    resultXML += `<event id="${event.ID}">
+                                </event>`
+                }
+    
+                res.type('application/xml');
+                res.send(resultXML);
+            }
+        })
+    } catch(err) {
+        console.log(err.message);
+        res.status(500);
+        res.send(JSON.stringify({"error" : "database connection error"}));
+    }
+
+    
+});
+
 // Retrieve Events By User ID
 app.get('/events/:studentID', async function(req, res) {
-    let studentID = req.params.studentID;
+    let studentID = req.params.studentID.trim();
+    console.log(typeof(studentID));
 
     try{
         let result = await db.getEventsByUser(studentID);
@@ -207,26 +245,37 @@ app.get('/events/:studentID', async function(req, res) {
     
                 res.type('application/xml');
                 res.send(resultXML);
-            }
+            },
+            
         })
     } catch(err) {
         console.log(err.message);
         res.status(500);
         res.send(JSON.stringify({"error" : "database connection error"}));
-    }
-
-    
+    } 
 });
 
 // POST - Schedule an event
 app.post('/events/add', async function (req, res) {
     const startDate = req.body.startDate;
     const endDate = req.body.endDate;
-    const studentID = req.body.studentID;
+    const studentID = req.body.studentID.trim();
     const building = req.body.building;
     const roomNo = req.body.roomNo;
 
-    console.log(`Body as received by api: ${req.body}`)
+    // Check that date is available
+    if(await validation.isValidDate(startDate, endDate, building, roomNo)==false) {
+        // console.log("date is not valid");
+        res.status(400).send({message: "Requested Time Is Not Available"})
+        return
+    }
+
+    // Check Student ID
+    if(await validation.checkStudentId(studentID)==false) {
+        // console.log("date is not valid");
+        res.status(400).send({message: "Invalid Student ID"})
+        return
+    }
 
     try{
         let result = await db.addEvent(startDate, endDate, studentID, building, roomNo);
@@ -320,6 +369,20 @@ app.post('/events/update', async function(req, res) {
     const studentID = req.body.studentID;
     const building = req.body.building;
     const roomNo = req.body.roomNo;
+
+    // Check that date is available
+    if(await validation.isValidDate(startDate, endDate, building, roomNo, eventID)==false) {
+        // console.log("date is not valid");
+        res.status(400).send({message: "Requested Time Is Not Available"})
+        return
+    }
+
+    // Check Student ID
+    if(await validation.checkStudentId(studentID)==false) {
+        // console.log("date is not valid");
+        res.status(400).send({message: "Invalid Student ID"})
+        return
+    }
 
     try{
         let result = await db.updateEvent(eventID, startDate, endDate, studentID, building, roomNo);
