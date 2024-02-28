@@ -1,3 +1,7 @@
+/*
+This is just a scratch file to store some SQL commands and objects for quick access.
+*/
+
 INSERT into Location
 VALUES('Practice Room - General', 130, 'A14', 'Practice Room'); 
 

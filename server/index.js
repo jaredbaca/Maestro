@@ -16,6 +16,12 @@ console.log(process.env.PORT);
 // Import DB object
 const db = require('../db/db.js');
 
+/**
+ * This file provides all api endpoints. Server-side validation of form data is performed when necessary 
+ * before calling the database functions. All database interaction has been abstracted out into the db.js module.
+ * This file calls those methods, then handles the result and set the http response codes appropriately.
+ */
+
 // =================================================== REST API Actions ==============================================================
 
 
@@ -95,10 +101,7 @@ app.get('/locations', async function (req, res) {
         console.error(err);
         res.status(500);
         res.send(JSON.stringify({"error" : "database connection error"}));
-    }
-    
-    
-        
+    }       
 });
 
 // Retrieve Events By Date
@@ -216,7 +219,7 @@ app.post('/event/date/location', async function(req, res) {
 });
 
 // Retrieve Events By User ID
-app.get('/events/:studentID', async function(req, res) {
+app.get('/events/student/:studentID', async function(req, res) {
     let studentID = req.params.studentID.trim();
     console.log(typeof(studentID));
 
@@ -247,6 +250,10 @@ app.get('/events/:studentID', async function(req, res) {
                 res.send(resultXML);
             },
             
+            'text/html' : function() {
+                res.send(result);
+            }
+            
         })
     } catch(err) {
         console.log(err.message);
@@ -272,11 +279,12 @@ app.post('/events/add', async function (req, res) {
 
     // Check Student ID
     if(await validation.checkStudentId(studentID)==false) {
-        // console.log("date is not valid");
+        // console.log("id is not valid");
         res.status(400).send({message: "Invalid Student ID"})
         return
     }
 
+    // After passing validation, perform database operation
     try{
         let result = await db.addEvent(startDate, endDate, studentID, building, roomNo);
         res.format({
@@ -355,8 +363,7 @@ app.post('/events/delete', async function(req, res) {
                 res.type('application/xml');
                 res.send(resultXML);
             }
-        })
-        
+        })  
     }
 });
 
