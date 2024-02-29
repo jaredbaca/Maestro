@@ -110,21 +110,32 @@ function Schedule(props) {
                                 {
                                     times.map((time, index) => {
                                         if(eventsByRoom.length > 0) {
-                                            for(let event of eventsByRoom) {
-                                                if(event.Start_Date && event.Start_Date.slice(11,16)==time) {
-                                                    return(
+                                            console.log(`Events by Room ${location.Name}: ` + eventsByRoom.map((event) => event.Start_Date))
+                                            
+                                            // for(let event of eventsByRoom) {
+                                                // console.log(`time: ${time}, checking event ${event.ID}`);
+
+                                                let foundEvents = eventsByRoom.find((event)=>event.Start_Date.slice(11,16)==time);
+                                                console.log(time + " found events: " + foundEvents);
+
+                                                return(
+                                                    //if an event was found for that time
+                                                    foundEvents ?
+
+                                                    //return formatted table cell
                                                     <td key={index} 
                                                     className='text-center thick-border' 
                                                     style={{maxWidth: '50px', overflow:'hidden', backgroundColor: locationColors[`${location.Type}`]}} 
-                                                    colSpan={calculateTimeSpan(event.Start_Date, event.End_Date)} id={event.ID} 
+                                                    colSpan={calculateTimeSpan(foundEvents.Start_Date, foundEvents.End_Date)} 
+                                                    id={foundEvents.ID} 
                                                     onClick={props.handleClick}>
-                                                        {`${event.First} ${event.Last}`}
+                                                        {`${foundEvents.First} ${foundEvents.Last}`}
                                                         </td>
-                                                    ) 
-                                                } else {
-                                                    return <td ></td>
-                                                }
-                                            } 
+                                                        
+                                                    // else (no event), return empty cell
+                                                        : <td></td>
+                                                )
+
                                         } else {
                                             return <td></td>
                                         }
