@@ -143,8 +143,8 @@ The admin page looks similar to the master calendar, but the events are clickabl
 ## Roadmap
 
 ### Features to be Added In the Short Term
-•	More fleshed out admin page with the ability to edit, add, and delete both users and locations.
-•	A “Room Type” field in the booking form that allows the user to filter locations by type (Studio, Ensemble Room, etc.). This will be more necessary as the number of locations grows.
+- More fleshed out admin page with the ability to edit, add, and delete both users and locations.
+- A “Room Type” field in the booking form that allows the user to filter locations by type (Studio, Ensemble Room, etc.). This will be more necessary as the number of locations grows.
 •	More granular booking restrictions for individual spaces, such as that a student be in a specific major, instrument, or semester level.
 •	Additional UI features such as forward/back arrows for the date, details available when hovering over calendar events, and confirmation prompt before deleting an event.
 •	A user-facing event details page that is read-only
