@@ -97,14 +97,14 @@ Once Node.js and npm have been installed, all additional dependencies can be ins
 
 This project requires connecting to an existing MySQL database. The db_init file will create the necessary tables along with primary and foreign keys, as well as populate the database with initial data. To do so, it must have a database name, host, and login credentials. These details can be added to the .env file for use in the rest of the application. If forking this repository on GitHub, the .env file is not included for obvious reasons. In that case, simply create a .env file and place it in the root directory.
 
-The following variables should be replaced or added to the .env file:
-
-MYSQL_USERNAME
-MYSQL_PASSWORD
-HOST
-DB_PORT
-DB_NAME
-
+The following variables should be replaced or added to the .env file:\
+\
+MYSQL_USERNAME\
+MYSQL_PASSWORD\
+HOST\
+DB_PORT\
+DB_NAME\
+\
 With the database created and the environment variables set, run the db_init.js file to populate the database. The db_init.js file will create the User, Location, and Event tables (if they do not already exist) and populate those tables with dummy data (if they are empty). 
 
 ### Launching in Development Mode
