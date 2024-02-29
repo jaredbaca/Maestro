@@ -30,8 +30,8 @@
   </p>
 </div>
 
-<img width="1470" alt="Screen Shot 2024-02-28 at 11 15 32 AM" src="https://github.com/jaredbaca/SchedulingSite/assets/110132943/e2d088ea-1f36-4226-befd-30445c984160">
-<img width="1467" alt="Screen Shot 2024-02-28 at 11 15 20 AM" src="https://github.com/jaredbaca/SchedulingSite/assets/110132943/1c3a5735-088c-42dd-a6f8-fb7e2d74a7f3">
+<img width="1299" alt="Screen Shot 2024-02-28 at 9 16 19 PM" src="https://github.com/jaredbaca/SchedulingSite/assets/110132943/4a43acc4-3adc-493d-940f-bf57d5a47f94">
+<img width="637" alt="Screen Shot 2024-02-28 at 7 11 24 PM" src="https://github.com/jaredbaca/SchedulingSite/assets/110132943/b197ae79-61eb-4a8e-8c2e-f243ac363b94">
 
 
 <!-- TABLE OF CONTENTS -->
