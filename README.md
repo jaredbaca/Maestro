@@ -165,7 +165,7 @@ The admin page looks similar to the master calendar, but the events are clickabl
 
 Jared Baca - jaredbacamusic@gmail.com
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+Project Link: [https://github.com/jaredbaca/Maestro](https://github.com/jaredbaca/Maestro)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
