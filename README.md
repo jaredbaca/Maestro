@@ -23,7 +23,7 @@
 <h2 align="center">Maestro</h2>
 
   <p align="center">
-    Maestro is a scheduling software designed for reserving music spaces. While the platform could be applied more generally, it was designed with music spaces in mind, including rehearsal rooms, recording studios, and practice rooms. 
+    Maestro is a scheduling software designed for reserving all manner of music spaces - from rehearsal rooms and practice rooms to recording studios and production suites. 
     <br />
     <br />
     <a href="https://github.com/github_username/repo_name">View Demo</a>
