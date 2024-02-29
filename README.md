@@ -105,7 +105,7 @@ HOST\
 DB_PORT\
 DB_NAME\
 \
-With the database created and the environment variables set, run the *db_init.js* file to populate the database. The *db_init.js* file will create the User, Location, and Event tables (if they do not already exist) and populate those tables with dummy data (if they are empty). 
+With the database created and the environment variables set, run the *db_init.js* file to populate the database. The *db_init.js* file will create the User, Location, and Event tables (if they do not already exist) and populate those tables with dummy data (if they are empty). The initial list of default events is scheduled for 03/01/2024. 
 
 ### Launching in Development Mode
 
