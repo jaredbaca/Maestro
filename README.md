@@ -31,7 +31,7 @@
 </div>
 
 <img width="1295" alt="Screen Shot 2024-02-28 at 9 24 46 PM" src="https://github.com/jaredbaca/SchedulingSite/assets/110132943/1ede156c-33c9-430d-89bf-dedf8380c4cd">
-<img width="637" alt="Screen Shot 2024-02-28 at 7 11 24 PM" src="https://github.com/jaredbaca/SchedulingSite/assets/110132943/4bf4db77-f5b3-4d12-a540-4a60aa251357">
+<img width="300" alt="Screen Shot 2024-02-28 at 7 11 24 PM" src="https://github.com/jaredbaca/SchedulingSite/assets/110132943/4bf4db77-f5b3-4d12-a540-4a60aa251357">
 <img width="1469" alt="Screen Shot 2024-02-28 at 11 15 08 AM" src="https://github.com/jaredbaca/SchedulingSite/assets/110132943/a6dac386-5551-4962-914c-3e5bf46b3873">
 
 
