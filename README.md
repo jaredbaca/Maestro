@@ -79,11 +79,6 @@ The application contains a database of students, locations, and scheduled events
 	<li><a href="https://react.dev">React</a></li>
 	<li><a href="https://getbootstrap.com/">Bootstrap</a></li>
 </ul>
--[Node][https://nodejs.org/en]
--Express
--MySQL
--React
--Bootstrap
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -92,9 +87,11 @@ The application contains a database of students, locations, and scheduled events
 <!-- GETTING STARTED -->
 ## Getting Started
 
+### Installation
+
 Working with Maestro in development mode requires Node.js and npm (Node Package Manager). See information for installing both here. https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 
-Once Node.js and npm have been installed, all additional dependencies can be installed by running the npm install terminal command in the root directory.
+Once Node.js and npm have been installed, all additional dependencies can be installed by running the **npm install** terminal command in the root directory.
 
 ### Setting up the MySQL database
 
@@ -126,8 +123,6 @@ This will launch the React development server on localhost:3000. If a browser do
 
 The React frontend forwards all API requests to the Node.js server on port 4000. This is set with the “proxy” setting in the React package.json file. To make calls to the API directly, such as with Postman or in the browser, make sure to use port 4000. 
 Usage
-
-### Installation
 
 
 
@@ -166,7 +161,7 @@ The usage of the application should be straightforward. The navigation bar conta
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Jared Baca - jaredbacamusic@gmail.com
 
 Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
 
@@ -175,11 +170,13 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 
 
 <!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
+## References
 
-* []()
-* []()
-* []()
+* [Bootstrap](https://getbootstrap.com/docs/4.0/getting-started/introduction/)
+* [Forms in React with Hooks](https://javascript.plainenglish.io/forms-in-react-with-hooks-809a3f38ed4)
+* [Passing Props through Link in react-router](https://www.daggala.com/passing-props-through-link-in-react-router/)
+* [Passing Data via Links in React: A Guide to Effective Data Transfer](https://medium.com/@hammadrao891/passing-data-via-links-in-react-a-guide-to-effective-data-transfer-1e0b030e2a12#:~:text=In%20React%20Router%2C%20we%20can,data%20we%20want%20to%20pass.)
+* [Validating, Creating, and Styling React-Bootstrap Forms](https://clerk.com/blog/validate-create-style-react-bootstrap-forms)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
