@@ -116,7 +116,7 @@ function Schedule(props) {
                                                 // console.log(`time: ${time}, checking event ${event.ID}`);
 
                                                 let foundEvents = eventsByRoom.find((event)=>event.Start_Date.slice(11,16)==time);
-                                                console.log(time + " found events: " + foundEvents);
+                                                console.log(time + " found events: " + (foundEvents? `${foundEvents.Start_Date}, ${foundEvents.Room_No}` : foundEvents));
 
                                                 return(
                                                     //if an event was found for that time
