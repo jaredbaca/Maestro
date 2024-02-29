@@ -6,6 +6,10 @@ const mysql_promise = require('mysql2/promise');
  * and defines the methods for database manipulation. 
  * It abstracts the database layer out of the
  * server code so that a different database could be used if necessary.
+ * 
+ * All queries are parameterized and use the "execute" function of mysql2,
+ * which automatically generates prepared statements, protecting against
+ * SQL injection.
  */
 
 // // Using hard coded values
