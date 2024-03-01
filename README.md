@@ -1,25 +1,3 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
-<a name="readme-top"></a>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
-
-
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-
-
 <h1 align="center">Maestro</h1>
 
   <p align="center">
@@ -91,7 +69,7 @@ The application contains a database of students, locations, and scheduled events
 
 Working with Maestro in development mode requires Node.js and npm (Node Package Manager). See information for installing both here. https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 
-Once Node.js and npm have been installed, all additional dependencies can be installed by running the **npm install** terminal command in the root directory.
+Once Node.js and npm have been installed, all additional dependencies can be installed by running the **npm install** terminal command in the root directory. You may need to also run **npm install** from the frontend directory in order to install the Node modules for the React project.
 
 ### Setting up the MySQL database
 
