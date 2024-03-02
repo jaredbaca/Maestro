@@ -100,14 +100,14 @@ npm start
 This will launch the React development server on localhost:3000. If a browser does not open automatically, manually open a browser and go to localhost:3000 to view the application.
 
 The React frontend forwards all API requests to the Node.js server on port 4000. This is set with the “proxy” setting in the React package.json file. To make calls to the API directly, such as with Postman or in the browser, make sure to use port 4000. 
-Usage
+
 
 
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-The usage of the application should be straightforward. The navigation bar contains links to the master calendar, the booking form, and the admin page (this is included for convenience at the development stage, but will be removed in production). The booking form allows the user to select a date and time, a location from the dropdown list of available locations (which pulls from the database), and enter their First, Last, and Student ID. Of these, the Student ID is the only one that is required, as it pulls all relevant student data from the database.  
+The navigation bar contains links to the master calendar, the booking form, and the admin page (this is included for convenience at the development stage, but will be removed in production). The booking form allows the user to select a date and time, a location from the dropdown list of available locations (which pulls from the database), and enter their First, Last, and Student ID. Of these, the Student ID is the only one that is required, as it pulls all relevant student data from the database.  
 
 Backend validation provides a check that the dates are valid (end date is after start date, time is not outside available hours of 9am – 11:59pm, and most importantly that the selected location is not already booked for the desired time). These checks happen prior to making any database queries. If any of these validation checks fail, the user is presented with an error message and remains on the booking page. If the request is valid, the user receives a success message and is redirected to the home page (master calendar).
 
