@@ -15,11 +15,8 @@ function EventList(props) {
     const [events, setEvents] = useState([]);
     const [date, setDate] = useState(new Date());
     const defaultDate = new Date().toISOString().slice(0,10);
-    // const [testDate] = useState(new Date());
-    // const [testDateString, setTestDateString] = useState(testDate.toDateString());
-    // console.log(defaultDate);
 
-    // Decrement date with arrow button
+    // Increment and Decrement date with arrow buttons
     const handleDecrementDate = () => {
         let tempDate = new Date(date);
         tempDate.setDate(tempDate.getDate() - 1);
