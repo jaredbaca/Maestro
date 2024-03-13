@@ -25,6 +25,10 @@ function EventDetailsAdmin() {
     const [bookedStartDate, setBookedStartDate] = useState("");
     const [bookedEndDate, setBookedEndDate] = useState("");
 
+    const [roomTypes, setRoomTypes] = useState([]);
+    const [currentType, setCurrentType] = useState("All");
+
+
     // No longer necessary since form modified event data directly. Keeping here just in case.
 
     //  //Form Data
@@ -88,7 +92,7 @@ function EventDetailsAdmin() {
                 
                 // // For filtering the Locations by Room Type (work in progress)
                 // let types = new Set(locations.map((location)=> location.Type))
-                // setRoomTypes(Array.from(types));
+                // setRoomTypes(Array.from(new Set(locations.map((location) => location.Type))));
                 // setCurrentType(roomTypes[0]);
                 // setCurrentLocation(locations[0] || null);
                 
@@ -99,6 +103,19 @@ function EventDetailsAdmin() {
         fetchLocations();
 
     }, []);
+
+    // Confirm Locations Have Loaded
+    useEffect(() => {
+        console.log(locations)
+        setRoomTypes(Array.from(new Set(locations.map((location) => location.Type))));
+        // setCurrentLocation(locations[0])
+    }, [locations]);
+
+    // Confirm Types have loaded
+    useEffect(() => {
+        console.log(roomTypes)
+        // setCurrentLocation(locations[0])
+    }, [roomTypes]);
 
     const handleChange = (event) => {
         const {name, value} = event.target;
@@ -113,6 +130,11 @@ function EventDetailsAdmin() {
 
         }
         console.log(event);
+    }
+
+    const handleTypeChange = (event) => {
+        setCurrentType(event.target.value)
+        // console.log(`selected type: ${currentType}`)
     }
 
     // Form Submission Function
@@ -206,6 +228,17 @@ function EventDetailsAdmin() {
                                                 </Form.Group>
 
                                                 <Form.Group className='mb-3' controlId="formLocation">
+                                                    <Form.Label>Type</Form.Label>
+                                                    <Form.Select onChange={handleTypeChange} name="type">
+                                                        <option value={"All"}>All</option>
+                                                        {
+                                                            roomTypes.map((type, index) => {
+                                                            return(<option key={index} value={type}>{type}</option>)
+                                                        })}
+                                                    </Form.Select>
+                                                </Form.Group>
+
+                                                <Form.Group className='mb-3' controlId="formLocation">
                                                     <Form.Label>Location</Form.Label>
                                                     <Form.Select 
                                                         defaultValue={`${event.Building} - ${event.Room_No}`} 
@@ -216,6 +249,7 @@ function EventDetailsAdmin() {
                                                         {locations.map((location, index) => {
 
                                                         return(
+                                                            (location.Type==currentType || currentType=="All") &&
                                                             <option 
                                                                 key={index}     
                                                                 value={`${location.Building},${location.Room_No}`}

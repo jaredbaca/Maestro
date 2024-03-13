@@ -64,7 +64,10 @@ function EventList(props) {
 
             <div className="text-center mt-3 mb-3">
                 <ChevronLeft className='pr-4' onClick={handleDecrementDate}/>
-                <input type="date" id="dateSelect" name="date"  defaultValue={defaultDate} value={date.toISOString().slice(0,10)} onChange={(event)=>setDate(new Date(event.target.value))}/>
+                <input type="date" id="dateSelect" name="date"  
+                // defaultValue={defaultDate} 
+                value={date.toISOString().slice(0,10)} 
+                onChange={(event)=>setDate(new Date(event.target.value))}/>
                 <ChevronRight className='ml-5' onClick={handleIncrementDate}/>
             </div>
             

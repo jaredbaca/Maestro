@@ -19,9 +19,9 @@ function BookingPage() {
     const [locations, setLocations] = useState(defaultLocations);
     const [date, setDate] = useState(new Date());
     const [eventsByRoom, setEventsByRoom] = useState([]);
-    const [roomTypes, setRoomTypes] = useState(locations.map((location) => location.Type));
+    const [roomTypes, setRoomTypes] = useState(Array.from(new Set(locations.map((location) => location.Type))));
     // const [availableTimes, setAvailableTimes] = useState([9, 11, 14, 16, 18, 20, 22, 24, 2, 4, 6]);
-    const [currentType, setCurrentType] = useState(roomTypes[0]);
+    const [currentType, setCurrentType] = useState("All");
     // const [bookedTimes, setBookedTimes] = useState([]);
     const [currentLocation, setCurrentLocation] = useState();
     const [validated, setValidated] = useState(false);
@@ -60,9 +60,9 @@ function BookingPage() {
         setCurrentLocation(locations[0])
     }, [locations]);
 
-    // useEffect(() => {
-    //     console.log(currentLocation)
-    // }, [currentLocation]);
+    useEffect(() => {
+        console.log(`selected type: ${currentType}`)
+    }, [currentType])
 
 
     // Form Data
@@ -94,6 +94,7 @@ function BookingPage() {
 
     const handleTypeChange = (event) => {
         setCurrentType(event.target.value)
+        // console.log(`selected type: ${currentType}`)
     }
 
     const handleSubmit = async (event) => {
@@ -153,15 +154,30 @@ function BookingPage() {
                                         
                                             <Form noValidate validated={validated} onSubmit={handleSubmit}>
                                                 
-                                                {/* <Form.Group className='mb-3' controlId="formLocation">
+                                        
+                                                <Form.Group className='mb-3' controlId="formLocation">
                                                     <Form.Label>Type</Form.Label>
-                                                    <Form.Select onChange={handleChange} name="type">
+                                                    <Form.Select onChange={handleTypeChange} name="type">
+                                                        <option value={"All"}>All</option>
                                                         {
                                                             roomTypes.map((type, index) => {
                                                             return(<option key={index} value={type}>{type}</option>)
                                                         })}
                                                     </Form.Select>
-                                                </Form.Group> */}
+                                                </Form.Group>
+
+                                                <Form.Group className='mb-3' controlId="formLocation">
+                                                    <Form.Label>Location</Form.Label>
+                                                    <Form.Select required onChange={handleChange}
+                                                        name="location">
+                                                        <option></option>
+                                                        {locations.map((location, index) => {
+                                                         return((location.Type==currentType || currentType=="All") && <option key={index} 
+                                                            value={`${location.Building},${location.Room_No}`}
+                                                            >{location.Building} - {location.Room_No} {location.Name}</option>)
+                                                        })}
+                                                    </Form.Select>
+                                                </Form.Group>
 
                                                 <Form.Group className="mb-3" controlId="formStartDate">
                                                     <Form.Label>Start</Form.Label>
@@ -174,19 +190,6 @@ function BookingPage() {
                                                     <Form.Control.Feedback type="invalid">
                                                         End date must be after start date
                                                     </Form.Control.Feedback>
-                                                </Form.Group>
-
-                                                <Form.Group className='mb-3' controlId="formLocation">
-                                                    <Form.Label>Location</Form.Label>
-                                                    <Form.Select required onChange={handleChange} 
-                                                        name="location">
-                                                        <option></option>
-                                                        {locations.map((location, index) => {
-                                                        return(<option key={index} 
-                                                            value={`${location.Building},${location.Room_No}`}
-                                                            >{location.Building} - {location.Room_No} {location.Name}</option>)
-                                                        })}
-                                                    </Form.Select>
                                                 </Form.Group>
 
                                                 <Form.Group className="mb-3" controlId="formFirst">
