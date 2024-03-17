@@ -104,6 +104,45 @@ app.get('/locations', async function (req, res) {
     }       
 });
 
+// Get All Users
+app.get('/users', async function (req, res) {
+
+    try{
+        let result = await db.getUsers();
+
+        res.format({
+
+            'application/json': function() {
+                res.json(result);
+            },
+    
+            'application/xml': function() {
+                let resultXML =
+                    `<?xml version="1.0"?>\n`
+                
+                for(let user of result) {
+                    resultXML += `<user>
+                                    <id>${user.id}</id>
+                                    <First>${user.First}</First>
+                                    <Last>${user.Last}</Last>
+                                    <Major>${user.Major}</Major>
+                                    <Semester>${user.Semester}</Semester>
+                                    <Instrument>${user.Instrument}</Instrument>
+                                    <Email>${user.Email}</Email>
+                                </user>`
+                }
+    
+                res.type('application/xml');
+                res.send(resultXML);
+            }
+        })
+    } catch(err) {
+        console.error(err);
+        res.status(500);
+        res.send(JSON.stringify({"error" : "database connection error"}));
+    }       
+});
+
 // Retrieve Events By Date
 app.post('/events/date', async function(req, res) {
     let date = req.body.date;

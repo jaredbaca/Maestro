@@ -54,6 +54,15 @@ module.exports.getLocations = async() => {
     return results;
 }
 
+// Get All Users
+module.exports.getUsers = async() => {
+    let query = "SELECT * FROM User";
+
+    const [results, fields] = await (await pool).execute(query);
+    console.log(results)
+    return results;
+}
+
 // Get all events for a specified date
 module.exports.getEventByDate = async(date) => {
 
