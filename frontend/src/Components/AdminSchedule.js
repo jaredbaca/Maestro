@@ -7,10 +7,9 @@ import NavBar from './NavBar';
 import EventList from './EventList';
 import "react-datepicker/dist/react-datepicker.css";
 import { Chip } from '@mui/material';
-import {Container, Tab, Tabs} from 'react-bootstrap';
-import UserAdmin from './UserAdmin';
+import {Tab, Tabs} from 'react-bootstrap';
 
-function Admin() {
+function AdminSchedule() {
 
     const navigate = useNavigate();
 
@@ -21,24 +20,9 @@ function Admin() {
     
     return(
         <div>
-            <Container>
-                <Tabs>
-                    <Tab eventKey={"Admin"} title="Events">
-                        <EventList subtitle="admin" handleClick={handleClick}/>
-                    </Tab>
-                    <Tab eventKey={"Users"} title="Users">
-                        <UserAdmin title="Users" subtitle="admin" />
-                    </Tab>
-                    <Tab eventKey={"Locations"} title="Locations">
-
-                    </Tab>
-                </Tabs>
-            </Container>
-            
-            
-
+            <EventList subtitle="admin" handleClick={handleClick}/>
         </div>
     );
 }
 
-export default Admin;
+export default AdminSchedule;

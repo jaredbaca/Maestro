@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Table, Container, Card} from 'react-bootstrap';
+import {Table, Container, Card, Tab, Tabs} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState, useEffect, useRef } from 'react';
 import {BrowserRouter as Router, Route, Routes, Link, useNavigate} from 'react-router-dom';
@@ -103,6 +103,7 @@ function Schedule(props) {
                         }
         
                         return(
+                            
                             // filter events by location and date/time to fill cells
                             <tr key={index} style={{whiteSpace:'nowrap'}}>
                                 <td >{location.Name ? location.Name : `${location.Building} - ${location.Room_No}`}</td>
